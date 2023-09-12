@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue: rgb(37 99 235 / 1);
+  --hoveredBlue: rgb(18, 72, 189);
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 107, 139, 0.158);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--blue);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hoveredBlue);
+}
