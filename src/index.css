@@ -20,3 +20,10 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--hoveredBlue);
 }
+
+/* Scroll hidden */
+.scroll-no-width::-webkit-scrollbar {
+  width: 3.5px;
+  height: 3.5px;
+  background: none
+}

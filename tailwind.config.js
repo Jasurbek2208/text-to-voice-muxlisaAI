@@ -9,6 +9,9 @@ export default {
       backgroundColor: {
         dark: 'rgb(22 17 25/1)',
         darker: 'rgb(22 17 25/0.5)',
+      },
+      maxHeight: {
+        messagesH: 'calc(100vh - 8rem)'
       }
     },
   },
