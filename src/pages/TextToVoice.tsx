@@ -73,10 +73,10 @@ export default function TextToVoice() {
     <div className="max-h-[100vh] h-[100%] overflow-hidden">
       <Navbar />
       <div className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width">
-        <audio controls>
+        {/* <audio controls>
           <source src={JSON.stringify(JSON.parse(localStorage.getItem('audios')!)[8])} type="audio/*" />
           Your browser does not support the audio element.
-        </audio>
+        </audio> */}
         {textToVoiceHistory && textToVoiceHistory.map((message) => 
           <div key={message.id} className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7">
             <Message message={message.request} isUser={true} />
