@@ -14,8 +14,6 @@ const store = createSlice({
     initialState,
     reducers: {
         textToVoiceHistoryChange: (state, action) => {
-            console.log(action.payload);
-            
             state.textToVoiceHistory.push(action.payload)
         }
     }

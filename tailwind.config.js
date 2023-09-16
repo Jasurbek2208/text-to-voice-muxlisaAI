@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        dark: 'rgb(22 17 25/1)',
-        darker: 'rgb(22 17 25/0.5)',
+        dark: 'rgba(52,53,65,1)',
+        darker: 'rgba(52,53,68,1)',
       },
       maxHeight: {
         messagesH: 'calc(100vh - 8rem)'
-      }
+      },
     },
   },
   plugins: [],

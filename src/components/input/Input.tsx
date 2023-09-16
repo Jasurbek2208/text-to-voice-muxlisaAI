@@ -29,9 +29,9 @@ export default function Input({ value, onChange, handleSubmit }: IInput) {
       ></textarea>
       <button
         type="submit"
-        disabled={!value}
+        disabled={!value.trim() || value.length > 500}
         onClick={handleSubmit}
-        className="inline-flex justify-center p-2 pl-0 text-blue-600 rounded-full cursor-pointer dark:text-blue-500"
+        className={`relative inline-flex justify-center p-2 pl-0 rounded-full ${value.length > 500 ? 'text-red-600 dark:text-red-500' : 'cursor-pointer text-blue-600 dark:text-blue-500'} outline-none duration-300 focus:scale-125`}
       >
         <svg
           className="w-5 h-5 rotate-90"
@@ -44,6 +44,7 @@ export default function Input({ value, onChange, handleSubmit }: IInput) {
         </svg>
         <span className="sr-only">Xabar yuborish</span>
       </button>
+      {value.length > 500 && <span className="absolute text-xs text-red-600 font-extralight font-mono right-1 bottom-0 shadow-lg shadow-gray-900">{value.length}/500</span>}
     </div>
   );
 }

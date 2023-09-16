@@ -4,8 +4,13 @@ export interface IRootState {
   store: ReturnType<typeof store>;
 }
 
+export interface IMessageConfigs {
+  date: string;
+  value: string;
+}
+
 export interface ITextToVoiceHistory {
   id: string;
-  request: string;
-  response: any;
+  request: IMessageConfigs;
+  response: IMessageConfigs;
 }
