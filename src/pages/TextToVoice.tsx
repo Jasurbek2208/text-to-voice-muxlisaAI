@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { myAxios } from "../service/axios";
+
+// Variables
+import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../variables"
 
 // Redux Store
 import { useDispatch } from "react-redux";
@@ -88,10 +91,10 @@ export default function TextToVoice() {
         </audio> */}
         {textToVoiceHistory && textToVoiceHistory.map((message) => 
           <div key={message.id} className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7">
-            <Message message={message.request} isUser={true} />
-            <Message message={message.response} isUser={false} />
-            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={true} />
-            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={false} />
+            <Message message={message.request} isUser={true} rounded={BORDER_BOTTOM_LEFT} />
+            <Message message={message.response} isUser={false} rounded={BORDER_BOTTOM_RIGHT} />
+            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={true} rounded={BORDER_BOTTOM_LEFT} />
+            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={false} rounded={BORDER_BOTTOM_RIGHT} />
           </div> 
         )}
       </div>
