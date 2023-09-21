@@ -79,7 +79,7 @@ export default function TextToVoice() {
   }
 
   return (
-    <div className="h-[100%]">
+    <div className="h-[100%] overflow-hidden">
       <Navbar />
       <div className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width">
         {/* <audio controls>
