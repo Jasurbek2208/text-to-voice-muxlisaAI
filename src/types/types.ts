@@ -1,4 +1,4 @@
-import store from "src/store/store";
+import store from "../store/store";
 
 export interface IRootState {
   store: ReturnType<typeof store>;
@@ -10,6 +10,7 @@ export interface IMessageConfigs {
 }
 
 export interface ITextToVoiceHistory {
+  type?: string;
   id: string;
   request: IMessageConfigs;
   response: IMessageConfigs;

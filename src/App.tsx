@@ -12,7 +12,7 @@ export default function App() {
   return (
     <Provider store={reduxStore}>
       <BrowserRouter>
-        <div className="bg-dark h-[100vh]">
+        <div className="bg-dark h-[100dvh]">
           <Router />
         </div>
       </BrowserRouter>
