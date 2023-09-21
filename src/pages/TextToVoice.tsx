@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { myAxios } from "../service/axios";
 
 // Redux Store
@@ -10,6 +10,7 @@ import { useTypedSelector } from "../hooks/reduxSelector";
 import Input from "../components/input/Input";
 import Navbar from "../components/navbar/Navbar";
 import Message from "../components/message/Message";
+import VoiceMessage from "../components/message/VoiceMessage";
 
 // Helpers
 import { getFullTime } from "../helpers/getFullTime";
@@ -46,6 +47,14 @@ export default function TextToVoice() {
     dispatch(textToVoiceHistoryChange(data));
   };
 
+  // useEffect(() => {
+    // console.log(JSON.parse(localStorage.getItem('audios')!)[8]);
+    
+    // const blob = new Blob([JSON.parse(localStorage.getItem('audios')!)[8]], { type: "audio/ogg" });
+    // setAudio(URL.createObjectURL(blob))
+    
+  // }, [])
+
   async function generateTextToVoice(data: ITextToVoiceHistory) {
     const formData  = new FormData();
     formData.append('token', "2tS3A-ceAkJFUFnLsxXaEQ");
@@ -74,13 +83,15 @@ export default function TextToVoice() {
       <Navbar />
       <div className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width">
         {/* <audio controls>
-          <source src={JSON.stringify(JSON.parse(localStorage.getItem('audios')!)[8])} type="audio/*" />
+          <source src={audio} type="audio/*" />
           Your browser does not support the audio element.
         </audio> */}
         {textToVoiceHistory && textToVoiceHistory.map((message) => 
           <div key={message.id} className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7">
             <Message message={message.request} isUser={true} />
             <Message message={message.response} isUser={false} />
+            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={true} />
+            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={false} />
           </div> 
         )}
       </div>
