@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { myAxios } from "../service/axios";
 
 // Variables
-import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../variables"
+import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../variables";
 
 // Redux Store
 import { useDispatch } from "react-redux";
@@ -28,63 +28,63 @@ export default function TextToVoice() {
   const [text, setText] = useState<string>("");
 
   const handleChange = (param: string) => {
+    if (param.length - 500 > 4999) return;
     setText(param);
   };
+
+  function getCurrentTime() {
+    const currentDate = new Date();
+    const isoDate = currentDate.toISOString();
+    return isoDate;
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem("newAudios")) {
+      const data: any = localStorage.getItem("newAudios");
+      const newData = JSON.parse(data);
+      console.log(newData);
+
+      newData.map((data: any) => {
+        dispatch(textToVoiceHistoryChange(data));
+      });
+    }
+  }, []);
 
   const handleSubmit = () => {
     const data: ITextToVoiceHistory = {
       id: String(new Date().getTime()),
       request: {
-        date: getFullTime(), 
-        value: text.trim()
+        date: getFullTime(),
+        value: text.trim(),
       },
       response: {
-        date: getFullTime(), 
-        value: "AI javobini olishda xatolik yuz berdi!"
+        date: getFullTime(),
+        value: "AI javobini olishda xatolik yuz berdi!",
       },
     };
-    
-    handleChange('');
-    // generateTextToVoice(data);
+
+    handleChange("");
+    generateTextToVoice(data);
 
     dispatch(textToVoiceHistoryChange(data));
   };
 
-  // const [audio, setAudio] = useState<any>('')
-  // useEffect(() => {
-  //   console.log(JSON.parse(localStorage.getItem('audios')!)[8]);
-  
- 
-  //   const blob = new Blob([JSON.parse(localStorage.getItem('audios')!)[8]], { type: "audio/ogg" });
-  //   const audioUrl = URL.createObjectURL(blob);
-  //   const downloadLink = document.createElement('a');
-  //   downloadLink.href = audioUrl;
-  //   downloadLink.download = 'sound.ogg';
-    
-  //   // Trigger the download
-  //   downloadLink.click();
-  //   // setAudio(URL.createObjectURL(blob))
-  //   console.log(URL.createObjectURL(blob))
-  // }, [])
-
   async function generateTextToVoice(data: ITextToVoiceHistory) {
-    const formData  = new FormData();
-    formData.append('token', "2tS3A-ceAkJFUFnLsxXaEQ");
-    formData.append('text', data.request.value);
-    formData.append('speaker_id', '1');
+    const formData = new FormData();
+    formData.append("speaker_id", "1");
+    formData.append("text", data.request.value);
+    formData.append("userRequestTime", getCurrentTime());
+    formData.append("user_id", "1690287141925 ");
 
     try {
-      const res = await myAxios.post('/tts/', formData);
-      console.log(JSON.stringify(res))
-      console.log(JSON.stringify(res.data))
-      
-      const audios = JSON.parse(localStorage.getItem('audios')!)
-      audios.push(res)
-      audios.push(res.data)
-      // console.log(audios);
-      
-      localStorage.setItem('audios', JSON.stringify(audios))
-      localStorage.setItem('audiosFile', JSON.stringify(res))
+      const response = await myAxios.post("/muxlisaAI/text-to-voice", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      const audios = JSON.parse(localStorage.getItem("newAudios")!);
+      audios.push(response.data);
+
+      localStorage.setItem("newAudios", JSON.stringify(audios));
     } catch (error) {
       console.log(error);
     }
@@ -94,18 +94,30 @@ export default function TextToVoice() {
     <div className="h-[100%] overflow-hidden">
       <Navbar />
       <div className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width">
-        {/* {audio && <audio controls>
-          <source src={audio} type="audio/mp3" />
-          Your browser does not support the audio element.
-        </audio>} */}
-        {textToVoiceHistory && textToVoiceHistory.map((message) => 
-          <div key={message.id} className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7">
-            <Message message={message.request} isUser={true} rounded={BORDER_BOTTOM_LEFT} />
-            <Message message={message.response} isUser={false} rounded={BORDER_BOTTOM_RIGHT} />
-            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={true} rounded={BORDER_BOTTOM_LEFT} />
-            <VoiceMessage message={textToVoiceHistory[0]?.request} isUser={false} rounded={BORDER_BOTTOM_RIGHT} />
-          </div> 
-        )}
+        {/* {audio && (
+          <audio controls>
+            <source src={audio} type="audio/ogg" />
+            Your browser does not support the audio element.
+          </audio>
+        )} */}
+        {textToVoiceHistory &&
+          textToVoiceHistory.map((message, idx) => (
+            <div
+              key={String(message?.id + "-" + idx)}
+              className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7"
+            >
+              <Message
+                message={message?.request}
+                isUser={true}
+                rounded={BORDER_BOTTOM_LEFT}
+              />
+              <VoiceMessage
+                message={textToVoiceHistory[0]?.request}
+                isUser={false}
+                rounded={BORDER_BOTTOM_RIGHT}
+              />
+            </div>
+          ))}
       </div>
       <Input value={text} onChange={handleChange} handleSubmit={handleSubmit} />
     </div>

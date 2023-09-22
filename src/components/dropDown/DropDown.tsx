@@ -68,7 +68,7 @@ export default function DropDown() {
         type="button"
         ref={buttonRef}
         onClick={toggleMenu}
-        className="flex items-center justify-center ml-auto text-white rotate-90 outline-none duration-200 focus:scale-125"
+        className="flex items-center justify-center ml-auto text-white rotate-90 outline-none duration-200 focus:scale-105"
       >
         <svg
           className="w-6 h-6"
