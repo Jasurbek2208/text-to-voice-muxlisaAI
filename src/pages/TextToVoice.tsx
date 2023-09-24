@@ -6,7 +6,7 @@ import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../variables";
 
 // Redux Store
 import { useDispatch } from "react-redux";
-import { textToVoiceHistoryChange } from "../store/store";
+import { textToVoiceHistoryAdd, textToVoiceHistoryChange } from "../store/store";
 import { useTypedSelector } from "../hooks/reduxSelector";
 
 // Components
@@ -16,6 +16,7 @@ import Message from "../components/message/Message";
 import VoiceMessage from "../components/message/VoiceMessage";
 
 // Helpers
+import { getHistory } from "../helpers/muxlisaAI";
 import { getFullTime } from "../helpers/getFullTime";
 
 // Types
@@ -39,15 +40,13 @@ export default function TextToVoice() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("newAudios")) {
-      const data: any = localStorage.getItem("newAudios");
-      const newData = JSON.parse(data);
-      console.log(newData);
+    (async () => {
+      const response = await getHistory(1, "1690287141925");
+      // getHistory(1, localStorage.getItem("userId"));
 
-      newData.map((data: any) => {
-        dispatch(textToVoiceHistoryChange(data));
-      });
-    }
+      console.log(response);
+      dispatch(textToVoiceHistoryAdd(response));
+    })();
   }, []);
 
   const handleSubmit = () => {
@@ -77,9 +76,13 @@ export default function TextToVoice() {
     formData.append("user_id", "1690287141925 ");
 
     try {
-      const response = await myAxios.post("/muxlisaAI/text-to-voice", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await myAxios.post(
+        "/muxlisaAI/text-to-voice",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       const audios = JSON.parse(localStorage.getItem("newAudios")!);
       audios.push(response.data);

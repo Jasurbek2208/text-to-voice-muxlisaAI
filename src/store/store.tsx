@@ -13,6 +13,9 @@ const store = createSlice({
     name: "store",
     initialState,
     reducers: {
+        textToVoiceHistoryAdd: (state, action) => {
+            state.textToVoiceHistory = action.payload
+        },
         textToVoiceHistoryChange: (state, action) => {
             state.textToVoiceHistory.push(action.payload)
         },
@@ -22,5 +25,5 @@ const store = createSlice({
     }
 })
 
-export const { textToVoiceHistoryChange, clearTextToVoiceHistory } = store.actions;
+export const { textToVoiceHistoryAdd, textToVoiceHistoryChange, clearTextToVoiceHistory } = store.actions;
 export default store.reducer;
