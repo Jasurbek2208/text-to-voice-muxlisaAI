@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { myAxios } from "../service/axios";
 
 // Variables
@@ -6,7 +6,10 @@ import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../variables";
 
 // Redux Store
 import { useDispatch } from "react-redux";
-import { textToVoiceHistoryAdd, textToVoiceHistoryChange } from "../store/store";
+import {
+  textToVoiceHistoryAdd,
+  textToVoiceHistoryChange,
+} from "../store/store";
 import { useTypedSelector } from "../hooks/reduxSelector";
 
 // Components
@@ -18,14 +21,19 @@ import VoiceMessage from "../components/message/VoiceMessage";
 // Helpers
 import { getHistory } from "../helpers/muxlisaAI";
 import { getFullTime } from "../helpers/getFullTime";
+import { scrollToBottom } from "../helpers/scrollToBottom";
 
 // Types
 import { ITextToVoiceHistory } from "../types/types";
 
 export default function TextToVoice() {
   const dispatch = useDispatch();
-  const { textToVoiceHistory } = useTypedSelector((s) => s.store);
+  const {
+    user: { userId },
+    textToVoiceHistory,
+  } = useTypedSelector((s) => s.store);
 
+  const contentRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState<string>("");
 
   const handleChange = (param: string) => {
@@ -40,14 +48,18 @@ export default function TextToVoice() {
   }
 
   useEffect(() => {
-    (async () => {
-      const response = await getHistory(1, "1690287141925");
-      // getHistory(1, localStorage.getItem("userId"));
+    scrollToBottom(contentRef);
+  }, [textToVoiceHistory]);
 
+  useEffect(() => {
+    if (!userId) return;
+
+    (async () => {
+      const response = await getHistory(1, userId);
       console.log(response);
       dispatch(textToVoiceHistoryAdd(response));
     })();
-  }, []);
+  }, [userId]);
 
   const handleSubmit = () => {
     const data: ITextToVoiceHistory = {
@@ -73,7 +85,7 @@ export default function TextToVoice() {
     formData.append("speaker_id", "1");
     formData.append("text", data.request.value);
     formData.append("userRequestTime", getCurrentTime());
-    formData.append("user_id", "1690287141925 ");
+    formData.append("user_id", "1690287141925");
 
     try {
       const response = await myAxios.post(
@@ -92,17 +104,13 @@ export default function TextToVoice() {
       console.log(error);
     }
   }
-
   return (
     <div className="h-[100%] overflow-hidden">
       <Navbar />
-      <div className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width">
-        {/* {audio && (
-          <audio controls>
-            <source src={audio} type="audio/ogg" />
-            Your browser does not support the audio element.
-          </audio>
-        )} */}
+      <div
+        ref={contentRef}
+        className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width"
+      >
         {textToVoiceHistory &&
           textToVoiceHistory.map((message, idx) => (
             <div

@@ -3,7 +3,6 @@ import { myAxios } from "../service/axios";
 export async function getHistory(historyType: 1 | 2, userId: string) {
   try {
     const response = await myAxios.get(`/muxlisaAI/user-history/${userId}/?history-type=${historyType}`);
-    console.log(response);
     
     return response.data.textToVoiceHistory;
   } catch (error) {

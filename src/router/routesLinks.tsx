@@ -6,16 +6,16 @@ import TextToVoice from "../pages/TextToVoice";
 
 const routes = [
   {
-    path: "/",
+    path: "/text-to-voice",
     element: <TextToVoice />,
   },
   // {
-  //   path: "/",
+  //   path: "/voice-to-text",
   //   element: <VoiceToText />,
   // },
   {
     path: "*",
-    element: <Navigate to="/" />,
+    element: <Navigate to="/text-to-voice" />,
   },
 ];
 
