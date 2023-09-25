@@ -1,11 +1,11 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-// Pages
-import TextToVoice from "../pages/TextToVoice";
-// import VoiceToText from "../pages/VoiceToText";
+// Lazy-loaded pages
+const TextToVoice = React.lazy(() => import("../pages/TextToVoice"));
+// const VoiceToText = React.lazy(() => import("../pages/VoiceToText"));
 
-const routes = [
+export const routes = [
   {
     path: "text-to-voice",
     element: <TextToVoice />,
@@ -19,5 +19,3 @@ const routes = [
     element: <Navigate to="/text-to-voice" />,
   },
 ];
-
-export { routes };
