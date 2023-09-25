@@ -7,7 +7,7 @@ import TextToVoice from "../pages/TextToVoice";
 
 const routes = [
   {
-    path: "/text-to-voice",
+    path: "text-to-voice",
     element: <TextToVoice />,
   },
   // {
@@ -16,7 +16,7 @@ const routes = [
   // },
   {
     path: "*",
-    element: <Navigate to="/text-to-voice" />,
+    element: <Navigate to="text-to-voice" />,
   },
 ];
 
