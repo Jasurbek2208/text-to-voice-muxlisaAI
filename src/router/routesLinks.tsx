@@ -16,7 +16,7 @@ const routes = [
   // },
   {
     path: "*",
-    element: <Navigate to="text-to-voice" />,
+    element: <Navigate to="/text-to-voice" />,
   },
 ];
 
