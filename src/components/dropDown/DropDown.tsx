@@ -11,7 +11,7 @@ import { clearHistory } from "../../helpers/muxlisaAI";
 
 export default function DropDown() {
   const dispatch = useDispatch();
-  const { user: { userId }, textToVoiceHistory } = useTypedSelector(store => store.store)
+  const { user: { userId } } = useTypedSelector(store => store.store)
   
   const pathname = useLocation().pathname as "text-to-voice" | "voice-to-text";
 
@@ -34,10 +34,10 @@ export default function DropDown() {
     // Function to handle clicks outside of the button
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
+        dropdownRef?.current &&
+        !dropdownRef?.current.contains(event?.target as Node) &&
+        buttonRef?.current &&
+        !buttonRef?.current.contains(event?.target as Node)
       ) {
         // Click occurred outside of the button, close the dropdown menu
         setIsMenuOpen(false);
@@ -96,7 +96,7 @@ export default function DropDown() {
         >
           <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
         </svg>
-        <span className="sr-only">Open actions menu</span>
+        <span className="sr-only">Qo'shimcha parametrlar</span>
       </button>
 
       {isMenuOpen && (
@@ -106,8 +106,8 @@ export default function DropDown() {
             className="flex flex-col justify-end py-1 space-y-2 w-28 bg-white border border-gray-100 rounded-lg rounded-bl-none shadow-sm dark:border-gray-600 dark:bg-gray-700"
           >
             <ul className="text-sm text-gray-500 dark:text-gray-300">
-              {menuItems.map((item, index) => (
-                <li key={index} onClick={item?.onClick}>
+              {menuItems?.map((item, index) => (
+                <li key={String(index)} onClick={item?.onClick}>
                   <p
                     className="flex items-center px-3 py-2 cursor-pointer outline-none hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-white focus:text-blue-600"
                   >
@@ -118,11 +118,11 @@ export default function DropDown() {
                       fill="currentColor"
                       viewBox="0 0 18 18"
                     >
-                      {item.icon.map((icon, idx) => (
+                      {item?.icon?.map((icon, idx) => (
                         <path key={String(idx)} d={icon} />
                       ))}
                     </svg>
-                    <span className="text-sm font-medium">{item.label}</span>
+                    <span className="text-sm font-medium">{item?.label}</span>
                   </p>
                 </li>
               ))}

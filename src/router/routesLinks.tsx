@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 // Pages
 import TextToVoice from "../pages/TextToVoice";
+// import VoiceToText from "../pages/VoiceToText";
 
 const routes = [
   {

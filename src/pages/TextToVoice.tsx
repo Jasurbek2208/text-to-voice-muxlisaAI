@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { myAxios } from "../service/axios";
 
 // Variables
@@ -37,13 +37,13 @@ export default function TextToVoice() {
   const [text, setText] = useState<string>("");
 
   const handleChange = (param: string) => {
-    if (param.length - 500 > 4999) return;
+    if (param?.length - 500 > 4999) return;
     setText(param);
   };
 
   function getCurrentTime() {
     const currentDate = new Date();
-    const isoDate = currentDate.toISOString();
+    const isoDate = currentDate?.toISOString();
     return isoDate;
   }
 
@@ -63,10 +63,10 @@ export default function TextToVoice() {
 
   const handleSubmit = () => {
     const data: ITextToVoiceHistory = {
-      id: String(new Date().getTime()),
+      id: String(new Date()?.getTime()),
       request: {
         date: getFullTime(),
-        value: text.trim(),
+        value: text?.trim(),
       },
       response: {
         date: getFullTime(),
@@ -83,7 +83,7 @@ export default function TextToVoice() {
   async function generateTextToVoice(data: ITextToVoiceHistory) {
     const formData = new FormData();
     formData.append("speaker_id", "1");
-    formData.append("text", data.request.value);
+    formData.append("text", data?.request?.value);
     formData.append("userRequestTime", getCurrentTime());
     formData.append("user_id", "1690287141925");
 
@@ -95,11 +95,8 @@ export default function TextToVoice() {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      console.log(response);
 
-      const audios = JSON.parse(localStorage.getItem("newAudios")!);
-      audios.push(response.data);
-
-      localStorage.setItem("newAudios", JSON.stringify(audios));
     } catch (error) {
       console.log(error);
     }
@@ -112,9 +109,9 @@ export default function TextToVoice() {
         className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width"
       >
         {textToVoiceHistory &&
-          textToVoiceHistory.map((message, idx) => (
+          textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
             <div
-              key={String(message?.id + "-" + idx)}
+              key={message?.id}
               className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7"
             >
               <Message

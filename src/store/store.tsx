@@ -28,19 +28,19 @@ const store = createSlice({
   initialState,
   reducers: {
     userTokenChange: (state, action) => {
-      state.user.userToken = action.payload;
+      state.user.userToken = action?.payload;
     },
     userIdChange: (state, action) => {
-      state.user.userId = action.payload;
+      state.user.userId = action?.payload;
     },
     userIsAuthChange: (state, action) => {
-      state.user.isAuth = action.payload;
+      state.user.isAuth = action?.payload;
     },
     textToVoiceHistoryAdd: (state, action) => {
-      state.textToVoiceHistory = action.payload;
+      state.textToVoiceHistory = action?.payload;
     },
     textToVoiceHistoryChange: (state, action) => {
-      state.textToVoiceHistory.push(action.payload);
+      state?.textToVoiceHistory.push(action?.payload);
     },
     clearTextToVoiceHistory: (state, action) => {
       state.textToVoiceHistory = [];
@@ -59,5 +59,5 @@ export const {
   textToVoiceHistoryChange,
   clearTextToVoiceHistory,
   clearVoiceToTextHistory,
-} = store.actions;
+} = store?.actions;
 export default store.reducer;
