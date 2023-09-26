@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-export default function Register() {
+export default function Login() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
