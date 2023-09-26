@@ -15,13 +15,13 @@ export default function Router() {
   // const renderRoutes = (routes: IRoute[]) => routes?.map((route: IRoute, idx: number) => <Route key={String(`${route?.path}-${idx}`)} path={route?.path} element={route?.element} />)
 
   return (
-    <Suspense fallback={<></>}>
+    // <Suspense fallback={<></>}>
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-      {/* <Routes>{isAuth ? renderRoutes(routes) : renderRoutes(authRoutes)}</Routes> */}
-    </Suspense>
   );
 }
+{/* <Routes>{isAuth ? renderRoutes(routes) : renderRoutes(authRoutes)}</Routes> */}
+{/* </Suspense> */}
