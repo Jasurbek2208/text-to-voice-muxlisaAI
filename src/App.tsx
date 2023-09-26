@@ -10,12 +10,12 @@ import Router from "./router/Router";
 
 export default function App() {
   return (
-    <Provider store={reduxStore}>
-      <BrowserRouter>
-        <div className="bg-dark h-[100dvh]">
+    <BrowserRouter>
+      <div className="bg-dark h-[100dvh]">
+        <Provider store={reduxStore}>
           <Router />
-        </div>
-      </BrowserRouter>
-    </Provider>
+        </Provider>
+      </div>
+    </BrowserRouter>
   );
 }
