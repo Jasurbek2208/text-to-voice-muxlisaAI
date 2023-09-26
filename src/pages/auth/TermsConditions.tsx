@@ -5,7 +5,7 @@ export default function TermsConditions() {
   const navigate = useNavigate();
   
   return (
-    <div className="w-full h-[100dvh] px-6 pt-8">
+    <div className="w-full max-w-[700px] mx-auto h-[100dvh] px-6 pt-8">
       <h1 className="text-center mb-6 text-2xl font-semibold text-white dark:text-white">
         Text to Voice
       </h1>

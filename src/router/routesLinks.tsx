@@ -10,8 +10,8 @@ const Login = React.lazy(() => import("../pages/auth/Login"));
 const Register = React.lazy(() => import("../pages/auth/Register"));
 const TermsConditions = React.lazy(() => import("../pages/auth/TermsConditions"));
 //   Autorized Routes
-const TextToVoice = React.lazy(() => import("../pages/TextToVoice"));
-// const VoiceToText = React.lazy(() => import("../pages/VoiceToText"));
+const TextToVoice = React.lazy(() => import("../pages/AIChats/TextToVoice"));
+// const VoiceToText = React.lazy(() => import("../pages//AIChats/VoiceToText"));
 
 
 export const authRoutes: IRoute[] = [

@@ -1,30 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
-import { myAxios } from "../service/axios";
+import { myAxios } from "../../service/axios";
 
 // Variables
-import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../variables";
+import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../../variables";
 
 // Redux Store
 import { useDispatch } from "react-redux";
 import {
   textToVoiceHistoryAdd,
   textToVoiceHistoryChange,
-} from "../store/store";
-import { useTypedSelector } from "../hooks/reduxSelector";
+} from "../../store/store";
+import { useTypedSelector } from "../../hooks/reduxSelector";
 
 // Components
-import Input from "../components/input/Input";
-import Navbar from "../components/navbar/Navbar";
-import Message from "../components/message/Message";
-import VoiceMessage from "../components/message/VoiceMessage";
+import Input from "../../components/input/Input";
+import Navbar from "../../components/navbar/Navbar";
+import Message from "../../components/message/Message";
+import VoiceMessage from "../../components/message/VoiceMessage";
 
 // Helpers
-import { getHistory } from "../helpers/muxlisaAI";
-import { getFullTime } from "../helpers/getFullTime";
-import { scrollToBottom } from "../helpers/scrollToBottom";
+import { getHistory } from "../../helpers/muxlisaAI";
+import { getFullTime } from "../../helpers/getFullTime";
+import { scrollToBottom } from "../../helpers/scrollToBottom";
 
 // Types
-import { ITextToVoiceHistory } from "../types/types";
+import { ITextToVoiceHistory } from "../../types/types";
 
 export default function TextToVoice() {
   const dispatch = useDispatch();
