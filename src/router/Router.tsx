@@ -7,6 +7,8 @@ import { authRoutes, routes } from "./routesLinks";
 export default function Router() {
   const { user: { isAuth } } = useTypedSelector((store) => store?.store);
 
-  const routers = useRoutes(isAuth ? routes : authRoutes);
-  return <Suspense fallback={<></>}>{routers}</Suspense>;
+  const currentRoutes = isAuth ? routes : authRoutes;
+  const routers = useRoutes(currentRoutes);
+  
+  return <Suspense fallback={<h1 className="text-center">Loading...</h1>}>{routers}</Suspense>;
 }
