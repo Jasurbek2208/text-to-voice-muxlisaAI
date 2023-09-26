@@ -2,15 +2,13 @@
   "version": 1,
   "builds": [
     {
-      "src": "vite.config.js",
-      "use": "@vercel/node"
+      "src": "vite.config.ts"
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
     {
-      "src": "/.*",
-      "dest": "/index.html"
+      "src": "./.*",
+      "dest": "./index.html"
     }
   ]
 }
