@@ -1,17 +1,17 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 // Types
 import { IRoute } from "../types/types";
 
 // Lazy-loaded pages
-//   Auth Routes
-const Login = React.lazy(() => import("../pages/auth/Login"));
-const Register = React.lazy(() => import("../pages/auth/Register"));
-const TermsConditions = React.lazy(() => import("../pages/auth/TermsConditions"));
-//   Autorized Routes
-const TextToVoice = React.lazy(() => import("../pages/AIChats/TextToVoice"));
-// const VoiceToText = React.lazy(() => import("../pages//AIChats/VoiceToText"));
+// ===Not autorized Routes
+const Login = lazy(() => import("../pages/auth/Login"));
+const Register = lazy(() => import("../pages/auth/Register"));
+const TermsConditions = lazy(() => import("../pages/auth/TermsConditions"));
+// ===Autorized Routes
+const TextToVoice = lazy(() => import("../pages/AIChats/TextToVoice"));
+// const VoiceToText = lazy(() => import("../pages//AIChats/VoiceToText"));
 
 
 export const authRoutes: IRoute[] = [
