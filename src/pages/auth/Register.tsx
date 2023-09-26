@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { userAuth } from "../../store/store";
+import { myAxios } from "../../service/axios";
 
 export default function Register() {
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -29,6 +34,21 @@ export default function Register() {
     setSearch(`?${params?.toString()}`)
     window?.history?.replaceState(null, '', `?${params?.toString()}`);
   }
+  
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget)
+    try {
+      const response = await myAxios.post("/auth/register", formData);
+      console.log(response);
+
+      dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <section className="h-[100dvh]">
@@ -41,7 +61,7 @@ export default function Register() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Hisob ochish
             </h1>
-            <form ref={formRef} className="space-y-4 md:space-y-6" action="#">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
                   htmlFor="email"

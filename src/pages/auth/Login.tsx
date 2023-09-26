@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { userAuth } from "../../store/store";
+import { myAxios } from "../../service/axios";
 
 export default function Login() {
+  const dispatch = useDispatch();
+
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -24,6 +29,19 @@ export default function Login() {
     window?.history?.replaceState(null, '', `?${params?.toString()}`);
   }
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget)
+    try {
+      const response = await myAxios.post("/auth/login", formData);
+      dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <section className="h-[100dvh]">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -35,7 +53,7 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Hisobga kirish
             </h1>
-            <form ref={formRef} className="space-y-4 md:space-y-6" action="#">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
                   htmlFor="email"

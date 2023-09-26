@@ -5,6 +5,8 @@ interface IUser {
   isAuth: boolean;
   userId: string;
   userToken: string;
+  name: string;
+  surname: string;
 }
 
 interface IInitialState {
@@ -17,8 +19,10 @@ const initialState: IInitialState = {
   textToVoiceHistory: [],
   voiceToTextHistory: [],
   user: {
+    surname: "",
+    name: "Guest",
     isAuth: false,
-    userId: "1690287141925",
+    userId: "",
     userToken: localStorage.getItem("$T$O$K$E$N$") || "",
   },
 };
@@ -27,14 +31,30 @@ const store = createSlice({
   name: "store",
   initialState,
   reducers: {
-    userTokenChange: (state, action) => {
-      state.user.userToken = action?.payload;
-    },
-    userIdChange: (state, action) => {
-      state.user.userId = action?.payload;
-    },
-    userIsAuthChange: (state, action) => {
-      state.user.isAuth = action?.payload;
+    userAuth: (state, action) => {
+      switch (action?.payload?.type) {
+        case "LOGIN":
+          state.user = {
+            isAuth: true,
+            name: action?.payload?.data?.user?.name,
+            surname: action?.payload?.data?.user?.surname,
+            userId: action?.payload?.data?.user?._id,
+            userToken: action?.payload?.data?.access_token,
+          };
+          localStorage.setItem("$T$O$K$E$N$", action?.payload?.data?.access_token);
+          break;
+
+        default:
+          state.user = {
+            isAuth: false,
+            name: "Guest",
+            surname: "",
+            userId: "",
+            userToken: "",
+          };
+          localStorage.removeItem("$T$O$K$E$N$");
+          break;
+      }
     },
     textToVoiceHistoryAdd: (state, action) => {
       state.textToVoiceHistory = action?.payload;
@@ -52,9 +72,7 @@ const store = createSlice({
 });
 
 export const {
-  userTokenChange,
-  userIdChange,
-  userIsAuthChange,
+  userAuth,
   textToVoiceHistoryAdd,
   textToVoiceHistoryChange,
   clearTextToVoiceHistory,

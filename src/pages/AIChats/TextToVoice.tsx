@@ -53,7 +53,6 @@ export default function TextToVoice() {
 
     (async () => {
       const response = await getHistory(1, userId);
-      console.log(response);
       dispatch(textToVoiceHistoryAdd(response));
     })();
   }, [userId]);
