@@ -1,13 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Register() {
+  const [search, setSearch] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if(!formRef?.current?.email || !formRef?.current?.password || !formRef?.current?.['confirm-password']) return;
 
     const params = new URLSearchParams(window?.location?.search);
+    setSearch(`?${params?.toString()}`);
     
     // Get the values of the email, password, and confirm-password parameters
     (formRef?.current?.email as any).value = params?.get("email");
@@ -20,10 +22,11 @@ export default function Register() {
     const params = new URLSearchParams(window?.location?.search);
     
     // Set the values of the email, password, and confirm-password parameters
-    const value = e?.currentTarget?.type === "checkbox" ? e?.currentTarget?.checked : e?.currentTarget?.value
+    const value = e?.currentTarget?.type === "checkbox" ? (e?.currentTarget?.checked) : e?.currentTarget?.value
     params?.set(e?.currentTarget?.name, String(value));
 
     // Replace the current URL with the updated query parameters
+    setSearch(`?${params?.toString()}`)
     window?.history?.replaceState(null, '', `?${params?.toString()}`);
   }
 
@@ -110,7 +113,7 @@ export default function Register() {
                     Men{" "}
                     <Link
                       className="font-medium text-blue-600 hover:underline dark:text-primary-500"
-                      to="/terms-and-conditions"
+                      to={`/terms-and-conditions${search}`}
                     >
                       Foydalanish shartlarni{" "}
                     </Link>

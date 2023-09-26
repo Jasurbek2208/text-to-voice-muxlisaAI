@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function TermsConditions() {
   const navigate = useNavigate();
-
+  
   return (
     <div className="w-full h-[100dvh] px-6 pt-8">
       <h1 className="text-center mb-6 text-2xl font-semibold text-white dark:text-white">
@@ -37,10 +37,10 @@ export default function TermsConditions() {
       </div>
       <button
         type="button"
-        onClick={() => navigate('/register/?terms=true')}
+        onClick={() => navigate(`/register${window?.location?.search}`)}
         className="w-full mt-5 text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
-        Foydalanish shartlari bilan tanishib chiqdim
+        Ortga qaytish
       </button>
     </div>
   );

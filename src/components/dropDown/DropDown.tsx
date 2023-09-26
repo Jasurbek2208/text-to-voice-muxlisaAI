@@ -11,7 +11,7 @@ import { clearHistory } from "../../helpers/muxlisaAI";
 
 export default function DropDown() {
   const dispatch = useDispatch();
-  const { user: { userId } } = useTypedSelector(store => store.store)
+  const { user: { userId } } = useTypedSelector(store => store?.store)
   
   const pathname = useLocation().pathname as "text-to-voice" | "voice-to-text";
 

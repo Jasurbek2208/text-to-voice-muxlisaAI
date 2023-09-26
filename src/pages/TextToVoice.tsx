@@ -28,10 +28,7 @@ import { ITextToVoiceHistory } from "../types/types";
 
 export default function TextToVoice() {
   const dispatch = useDispatch();
-  const {
-    user: { userId },
-    textToVoiceHistory,
-  } = useTypedSelector((s) => s.store);
+  const { user: { userId }, textToVoiceHistory } = useTypedSelector((s) => s?.store);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState<string>("");
