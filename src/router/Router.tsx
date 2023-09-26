@@ -1,11 +1,11 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useTypedSelector } from "../hooks/reduxSelector";
 
-import { IRoute } from "../types/types";
-import { authRoutes, routes } from "./routesLinks";
-const Login = React.lazy(() => import("../pages/auth/Login"));
-const Register = React.lazy(() => import("../pages/auth/Register"));
+// import { IRoute } from "../types/types";
+// import { authRoutes, routes } from "./routesLinks";
+const Login = lazy(() => import("../pages/auth/Login"));
+const Register = lazy(() => import("../pages/auth/Register"));
 
 export default function Router() {
   const { user: { isAuth } } = useTypedSelector((store) => store?.store);
