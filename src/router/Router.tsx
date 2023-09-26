@@ -15,8 +15,8 @@ export default function Router() {
   return (
     <Suspense fallback={<></>}>
       <Routes>
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Login />} />
       <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
       {/* <Routes>{isAuth ? renderRoutes(routes) : renderRoutes(authRoutes)}</Routes> */}
