@@ -1,19 +1,26 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { userAuth } from "../../store/store";
 import { myAxios } from "../../service/axios";
+import { Link } from "react-router-dom";
+import { v4 } from "uuid";
+
+// Redux store
+import { useDispatch } from "react-redux";
+import { userAuth } from "../../store/store";
+
+// Helpers
+import { setAuthURL } from "../../helpers/checkingAuthURL";
 
 export default function Login() {
   const dispatch = useDispatch();
+  const thisURLID: string = v4();
 
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if(!formRef?.current?.email || !formRef?.current?.password) return;
+    if (!formRef?.current?.email || !formRef?.current?.password) return;
 
     const params = new URLSearchParams(window?.location?.search);
-    
+
     // Get the values of the email, password, and confirm-password parameters
     (formRef?.current?.email as any).value = params?.get("email");
     (formRef?.current?.password as any).value = params?.get("password");
@@ -21,22 +28,23 @@ export default function Login() {
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
     const params = new URLSearchParams(window?.location?.search);
-    
+
     // Set the values of the email, password, and confirm-password parameters
     params?.set(e?.currentTarget?.name, e?.currentTarget?.value);
 
     // Replace the current URL with the updated query parameters
-    window?.history?.replaceState(null, '', `?${params?.toString()}`);
+    window?.history?.replaceState(null, "", `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`);
+
+    setAuthURL(thisURLID);
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(e.currentTarget);
     try {
       const response = await myAxios.post("/auth/login", formData);
-      dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))
-      
+      dispatch(userAuth({ data: response?.data, type: "LOGIN" }));
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +61,12 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Hisobga kirish
             </h1>
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="space-y-4 md:space-y-6"
+              action="#"
+            >
               <div>
                 <label
                   htmlFor="email"

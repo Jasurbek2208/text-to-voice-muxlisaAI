@@ -8,6 +8,9 @@ import { authRoutes, routes } from "./routesLinks";
 
 // Loader
 import Loader from "../components/loader/Loader";
+
+// Helpers
+import { checkingAuthURL } from "../helpers/checkingAuthURL";
 import { checkTokenValidity } from "../helpers/checkTokenValidity";
 
 export default function Router() {
@@ -15,7 +18,9 @@ export default function Router() {
   const { user: { isAuth } } = useTypedSelector((store) => store?.store);
 
   useEffect(() => {
-    checkTokenValidity(dispatch)
+    checkingAuthURL()
+    if(!localStorage.getItem("$T$O$K$E$N$")) return;
+    checkTokenValidity(dispatch);
   }, [])
 
   const currentRoutes = isAuth ? routes : authRoutes;

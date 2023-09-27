@@ -28,7 +28,10 @@ import { ITextToVoiceHistory } from "../../types/types";
 
 export default function TextToVoice() {
   const dispatch = useDispatch();
-  const { user: { userId }, textToVoiceHistory } = useTypedSelector((s) => s?.store);
+  const {
+    user: { userId },
+    textToVoiceHistory,
+  } = useTypedSelector((s) => s?.store);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState<string>("");
@@ -48,10 +51,26 @@ export default function TextToVoice() {
     scrollToBottom(contentRef);
   }, [textToVoiceHistory]);
 
+  const [audios, setAudios] = useState("");
+  const audioRef = useRef<any>();
+
+  const playAudio = () => {
+    // Create an audio blob from the base64 data
+    const audioBlob = new Blob([audios], { type: "audio/ogg" });
+    const audioUrl = URL.createObjectURL(audioBlob);
+    console.log(audioUrl);
+    
+    audioRef.current.src = audioUrl;
+    audioRef.current.play();
+  };
   useEffect(() => {
     if (!userId) return;
 
     (async () => {
+      // const responses = await axios.get("/muxlisaAI/testing");
+      // console.log(responses);
+
+      // setAudios(responses.data);
       const response = await getHistory(1, userId);
       dispatch(textToVoiceHistoryAdd(response));
     })();
@@ -92,7 +111,6 @@ export default function TextToVoice() {
         }
       );
       console.log(response);
-
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +122,13 @@ export default function TextToVoice() {
         ref={contentRef}
         className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width"
       >
+        <button onClick={playAudio}>Play Audio</button>
+        {audios && (
+          <audio ref={audioRef} controls>
+            <source type="audio/ogg" />
+            Your browser does not support the audio element.
+          </audio>
+        )}
         {textToVoiceHistory &&
           textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
             <div
