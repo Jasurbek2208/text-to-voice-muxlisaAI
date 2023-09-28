@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { myAxios } from "../../service/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { v4 } from "uuid";
 
@@ -13,6 +13,7 @@ import { setAuthURL } from "../../helpers/checkingAuthURL";
 
 export default function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const thisURLID: string = Cookies.get("$THIS$CURRENT$USER$") || v4();
 
   const [search, setSearch] = useState<string>("");
@@ -25,6 +26,9 @@ export default function Register() {
     setSearch(`?${params?.toString()}`);
     
     // Get the values of the email, password, and confirm-password parameters
+    (formRef?.current?.name as any).value = params?.get("name");
+    (formRef?.current?.surname as any).value = params?.get("surname");
+    (formRef?.current?.birthday as any).value = params?.get("birthday");
     (formRef?.current?.email as any).value = params?.get("email");
     (formRef?.current?.password as any).value = params?.get("password");
     (formRef?.current?.['confirm-password'] as any).value = params?.get("confirm-password");
@@ -50,10 +54,13 @@ export default function Register() {
 
     const formData = new FormData(e.currentTarget)
     try {
-      const response = await myAxios.post("/auth/register", formData);
-      console.log(response);
+      // const response = await myAxios.post("/auth/register", formData);
+      // console.log(response);
 
-      dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))
+      localStorage.setItem("success-registered", e?.currentTarget?.email?.value || "");
+      navigate("/success-registered");
+      
+      // dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))
       
     } catch (error) {
       console.log(error);
@@ -71,6 +78,57 @@ export default function Register() {
             Hisob ochish
           </h1>
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
+            <div>
+              <label
+                htmlFor="name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Ism
+              </label>
+              <input
+                type="name"
+                name="name"
+                id="name"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Jasurbek"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="surname"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Familiya
+              </label>
+              <input
+                type="surname"
+                name="surname"
+                id="surname"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Shomaqsudov"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="surname"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Tug'ilgan sana
+              </label>
+              <input
+                type="birthday"
+                name="birthday"
+                id="birthday"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="22.08.2004"
+                onChange={handleChange}
+                required
+              />
+            </div>
             <div>
               <label
                 htmlFor="email"

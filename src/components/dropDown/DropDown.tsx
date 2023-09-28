@@ -7,7 +7,7 @@ import { useTypedSelector } from "../../hooks/reduxSelector";
 import { clearTextToVoiceHistory, clearVoiceToTextHistory } from "../../store/store";
 
 // Helpers
-import { clearHistory } from "../../helpers/muxlisaAI";
+import { clearHistory } from "../../helpers/muxlisaAIAPI";
 
 export default function DropDown() {
   const dispatch = useDispatch();

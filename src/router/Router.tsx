@@ -3,6 +3,7 @@ import { useRoutes } from "react-router-dom";
 
 // Redux store
 import { useDispatch } from "react-redux";
+import { changeLoading } from "../store/store";
 import { useTypedSelector } from "../hooks/reduxSelector";
 
 // Routes
@@ -17,16 +18,22 @@ import { checkTokenValidity } from "../helpers/checkTokenValidity";
 
 export default function Router() {
   const dispatch = useDispatch();
-  const { user: { isAuth } } = useTypedSelector((store) => store?.store);
+  const { isLoading, user: { isAuth } } = useTypedSelector((store) => store?.store);
 
-  useEffect(() => {
-    checkingAuthURL();
+  async function checking() {
+    await checkingAuthURL();
     if(!localStorage.getItem("$T$O$K$E$N$")) return;
-    checkTokenValidity(dispatch);
+    await checkTokenValidity(dispatch);
+  }
+  
+  useEffect(() => {
+    checking();
+    dispatch(changeLoading(false));
+    if(window.location.pathname === "/success-registered") return;
   }, [])
 
   const currentRoutes = isAuth ? routes : authRoutes;
   const routers = useRoutes(currentRoutes);
 
-  return <Suspense fallback={<Loader />}>{routers}</Suspense>;
+  return isLoading ? <Loader /> : <Suspense fallback={<Loader />}>{routers}</Suspense>;
 }

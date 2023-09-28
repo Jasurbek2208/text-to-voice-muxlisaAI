@@ -8,6 +8,7 @@ import { IRoute } from "../types/types";
 // ===Not autorized Routes
 const Login = lazy(() => import("../pages/auth/Login"));
 const Register = lazy(() => import("../pages/auth/Register"));
+const SuccessRegistered = lazy(() => import("../pages/auth/SuccessRegistered"));
 const TermsConditions = lazy(() => import("../pages/auth/TermsConditions"));
 // ===Autorized Routes
 const TextToVoice = lazy(() => import("../pages/AIChats/TextToVoice"));
@@ -22,6 +23,10 @@ export const authRoutes: IRoute[] = [
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "success-registered",
+    element: localStorage.getItem("success-registered") ? <SuccessRegistered /> : <Navigate to="/login" />,
   },
   {
     path: "terms-and-conditions",

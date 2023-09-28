@@ -19,7 +19,7 @@ import Message from "../../components/message/Message";
 import VoiceMessage from "../../components/message/VoiceMessage";
 
 // Helpers
-import { getHistory } from "../../helpers/muxlisaAI";
+import { getHistory } from "../../helpers/muxlisaAIAPI";
 import { getFullTime } from "../../helpers/getFullTime";
 import { scrollToBottom } from "../../helpers/scrollToBottom";
 

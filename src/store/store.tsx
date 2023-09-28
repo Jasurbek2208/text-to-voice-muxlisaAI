@@ -10,12 +10,14 @@ interface IUser {
 }
 
 interface IInitialState {
+  isLoading: boolean;
   textToVoiceHistory: ITextToVoiceHistory[];
   voiceToTextHistory: ITextToVoiceHistory[];
   user: IUser;
 }
 
 const initialState: IInitialState = {
+  isLoading: true,
   textToVoiceHistory: [],
   voiceToTextHistory: [],
   user: {
@@ -31,6 +33,9 @@ const store = createSlice({
   name: "store",
   initialState,
   reducers: {
+    changeLoading: (state, action) => {
+      state.isLoading = action?.payload;
+    },
     userAuth: (state, action) => {
       switch (action?.payload?.type) {
         case "LOGIN":
@@ -72,6 +77,7 @@ const store = createSlice({
 });
 
 export const {
+  changeLoading,
   userAuth,
   textToVoiceHistoryAdd,
   textToVoiceHistoryChange,

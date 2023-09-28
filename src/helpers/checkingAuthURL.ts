@@ -6,7 +6,7 @@ export function checkingAuthURL() {
   const params = new URLSearchParams(window?.location?.search);
   const currentURLID = String(params?.get("browserId"))
 
-  if (thisUsersURL !== currentURLID) {
+  if (thisUsersURL !== currentURLID && window.location.pathname !== "/success-registered") {
     Cookies.remove("$THIS$CURRENT$USER$");
     window?.history?.replaceState(null, "", "?");
   }
