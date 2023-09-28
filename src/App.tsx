@@ -11,7 +11,7 @@ import Router from "./router/Router";
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="bg-dark h-[100dvh]">
+      <div className="bg-dark min-h-dvh h-full">
         <Provider store={reduxStore}>
           <Router />
         </Provider>

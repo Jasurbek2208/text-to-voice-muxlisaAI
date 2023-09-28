@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { myAxios } from "../../service/axios";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { v4 } from "uuid";
 
 // Redux store
@@ -12,7 +13,7 @@ import { setAuthURL } from "../../helpers/checkingAuthURL";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const thisURLID: string = v4();
+  const thisURLID: string = Cookies.get("$THIS$CURRENT$USER$") || v4();
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -51,8 +52,8 @@ export default function Login() {
   }
 
   return (
-    <section className="h-[100dvh]">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section>
+      <div className="flex flex-col items-center justify-center px-6 pt-11 pb-7 mx-auto">
         <h1 className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white">
           Text to Voice
         </h1>
