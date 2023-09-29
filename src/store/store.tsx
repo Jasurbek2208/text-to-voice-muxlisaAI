@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import { ITextToVoiceHistory } from "../types/types";
 
 interface IUser {
@@ -25,7 +26,7 @@ const initialState: IInitialState = {
     name: "Guest",
     isAuth: false,
     userId: "",
-    userToken: localStorage.getItem("$T$O$K$E$N$") || "",
+    userToken: Cookies.get("$T$O$K$E$N$") || "",
   },
 };
 
@@ -46,7 +47,7 @@ const store = createSlice({
             userId: action?.payload?.data?.user?._id,
             userToken: action?.payload?.data?.access_token,
           };
-          localStorage.setItem("$T$O$K$E$N$", action?.payload?.data?.access_token);
+          Cookies.set("$T$O$K$E$N$", action?.payload?.data?.access_token, { expires: 10 });
           break;
 
         default:
@@ -57,7 +58,7 @@ const store = createSlice({
             userId: "",
             userToken: "",
           };
-          localStorage.removeItem("$T$O$K$E$N$");
+          Cookies.remove("$T$O$K$E$N$");
           break;
       }
     },

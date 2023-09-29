@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { myAxios } from "../../service/axios";
 import { Link, useNavigate } from "react-router-dom";
+import { myAxios } from "../../service/axios";
 import Cookies from "js-cookie";
 import { v4 } from "uuid";
 
@@ -10,6 +10,7 @@ import { userAuth } from "../../store/store";
 
 // Helpers
 import { setAuthURL } from "../../helpers/checkingAuthURL";
+import { requestToSendVerify } from "../../helpers/verifyAccount";
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -53,11 +54,14 @@ export default function Register() {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget)
+    const email = e?.currentTarget?.email?.value;
+    
     try {
       // const response = await myAxios.post("/auth/register", formData);
+      await requestToSendVerify(email || "");
       // console.log(response);
 
-      localStorage.setItem("success-registered", e?.currentTarget?.email?.value || "");
+      localStorage.setItem("success-registered", email || "");
       navigate("/success-registered");
       
       // dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))

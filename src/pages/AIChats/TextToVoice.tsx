@@ -116,19 +116,19 @@ export default function TextToVoice() {
     }
   }
   return (
-    <div className="h-[100%] overflow-hidden">
+    <div className="max-h-dvh h-dvh overflow-hidden">
       <Navbar />
       <div
         ref={contentRef}
-        className="w-full py-5 max-h-messagesH h-[100%] overflow-y-scroll scroll-no-width"
+        className="w-full py-5 max-h-messagesH h-full overflow-y-scroll scroll-no-width"
       >
-        <button onClick={playAudio}>Play Audio</button>
+        {/* <button onClick={playAudio}>Play Audio</button>
         {audios && (
           <audio ref={audioRef} controls>
             <source type="audio/ogg" />
             Your browser does not support the audio element.
           </audio>
-        )}
+        )} */}
         {textToVoiceHistory &&
           textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
             <div

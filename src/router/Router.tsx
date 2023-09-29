@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import { useRoutes } from "react-router-dom";
+import Cookies from "js-cookie";
 
 // Redux store
 import { useDispatch } from "react-redux";
@@ -21,8 +22,8 @@ export default function Router() {
   const { isLoading, user: { isAuth } } = useTypedSelector((store) => store?.store);
 
   async function checking() {
-    await checkingAuthURL();
-    if(!localStorage.getItem("$T$O$K$E$N$")) return;
+    checkingAuthURL();
+    if(!Cookies.get("$T$O$K$E$N$")) return;
     await checkTokenValidity(dispatch);
   }
   

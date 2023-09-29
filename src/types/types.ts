@@ -21,3 +21,13 @@ export interface IRoute {
   path: string;
   element: React.ReactNode;
 }
+
+export interface IVerifyAccountParams {
+  verifyId: string;
+  email: string;
+}
+
+export interface IDeleteUserParams {
+  verifyId: string;
+  userToken?: string;
+}
