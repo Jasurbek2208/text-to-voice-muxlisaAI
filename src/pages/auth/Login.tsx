@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { myAxios } from "../../service/axios";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { v4 } from "uuid";
 
@@ -46,8 +47,8 @@ export default function Login() {
     try {
       const response = await myAxios.post("/auth/login", formData);
       dispatch(userAuth({ data: response?.data, type: "LOGIN" }));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.warning(error?.response?.data?.message, { position: "top-center" });
     }
   }
 
@@ -65,7 +66,7 @@ export default function Login() {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="space-y-4 md:space-y-6"
+              className="relative space-y-4 md:space-y-6"
               action="#"
             >
               <div>
@@ -99,6 +100,7 @@ export default function Login() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="••••••••"
                   onChange={handleChange}
+                  minLength={12}
                   required
                 />
               </div>
