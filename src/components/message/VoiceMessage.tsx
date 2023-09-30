@@ -1,7 +1,7 @@
 import React from "react";
 
 // Types
-import { IMessageConfigs } from "../../types/types";
+import { IMessageConfigs } from "../../types";
 
 interface IMessage {
   message: IMessageConfigs;

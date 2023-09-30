@@ -6,11 +6,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Redux Store
-import reduxStore from "./store";
+import reduxStore from "@store/index";
 import { Provider } from "react-redux";
 
 // Router
-import Router from "./router/Router";
+import Router from "@router/Router";
 
 export default function App() {
   return (

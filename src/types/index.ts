@@ -1,5 +1,5 @@
 import React from "react";
-import store from "../store/store";
+import store from "@store/store";
 
 export interface IRootState {
   store: ReturnType<typeof store>;

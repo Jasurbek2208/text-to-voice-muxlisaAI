@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { myAxios } from "../../service/axios";
+import { myAxios } from "@service/axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
@@ -7,10 +7,10 @@ import { v4 } from "uuid";
 
 // Redux store
 import { useDispatch } from "react-redux";
-import { userAuth } from "../../store/store";
+import { userAuth } from "@store/store";
 
 // Helpers
-import { setAuthURL } from "../../helpers/checkingAuthURL";
+import { setAuthURL, setFormFields, trimValuesChecker } from "@helpers/index";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -24,8 +24,8 @@ export default function Login() {
     const params = new URLSearchParams(window?.location?.search);
 
     // Get the values of the email, password, and confirm-password parameters
-    (formRef?.current?.email as any).value = params?.get("email");
-    (formRef?.current?.password as any).value = params?.get("password");
+    setFormFields(formRef, "email", "value", params?.get("email") || "");
+    setFormFields(formRef, "password", "value", params?.get("password") || "");
   }, []);
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
@@ -47,8 +47,10 @@ export default function Login() {
     try {
       const response = await myAxios.post("/auth/login", formData);
       dispatch(userAuth({ data: response?.data, type: "LOGIN" }));
+      toast.success(response?.data?.message, { position: "top-center" });
+
     } catch (error: any) {
-      toast.warning(error?.response?.data?.message, { position: "top-center" });
+      toast.warning(error?.response?.data?.message || "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.", { position: "top-center" });
     }
   }
 
@@ -81,7 +83,7 @@ export default function Login() {
                   name="email"
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="ism@gmail.uz"
+                  placeholder="johndoe@gmail.uz"
                   onChange={handleChange}
                   required
                 />
@@ -106,6 +108,7 @@ export default function Login() {
               </div>
               <button
                 type="submit"
+                onClick={()=> trimValuesChecker(formRef, "REGISTER")}
                 className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Hisobga kirish

@@ -4,18 +4,17 @@ import Cookies from "js-cookie";
 
 // Redux store
 import { useDispatch } from "react-redux";
-import { changeLoading } from "../store/store";
-import { useTypedSelector } from "../hooks/reduxSelector";
+import { changeLoading } from "@store/store";
+import { useTypedSelector } from "@hooks/reduxSelector";
 
 // Routes
 import { authRoutes, routes } from "./routesLinks";
 
 // Loader
-import Loader from "../components/loader/Loader";
+import Loader from "@components/loader/Loader";
 
 // Helpers
-import { checkingAuthURL } from "../helpers/checkingAuthURL";
-import { checkTokenValidity } from "../helpers/checkTokenValidity";
+import { checkingAuthURL, checkTokenValidity } from "@helpers/index";
 
 export default function Router() {
   const dispatch = useDispatch();

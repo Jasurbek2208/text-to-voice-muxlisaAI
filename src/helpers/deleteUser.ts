@@ -1,9 +1,11 @@
 import Cookies from "js-cookie";
-import { myAxios } from "../service/axios";
+import { myAxios } from "@service/axios";
 
 // Types
-import { IDeleteUserParams } from "../types/types";
-import { refreshedNavigate } from "./refreshedNavigate";
+import { IDeleteUserParams } from "../types";
+
+// Helpers
+import { refreshedNavigate } from "./index";
 
 export async function deleteUser(params: IDeleteUserParams) {
   try {

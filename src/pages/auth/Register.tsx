@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { myAxios } from "../../service/axios";
+import { Link } from "react-router-dom";
+import { myAxios } from "@service/axios";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { v4 } from "uuid";
 
 // Helpers
-import { setAuthURL } from "../../helpers/checkingAuthURL";
-import { requestToSendVerify } from "../../helpers/verifyAccount";
+import { setAuthURL, setFormFields, requestToSendVerify, trimValuesChecker } from "@helpers/index";
 
 export default function Register() {
-  const navigate = useNavigate();
   const thisURLID: string = Cookies.get("$THIS$CURRENT$USER$") || v4();
 
   const [search, setSearch] = useState<string>("");
@@ -17,7 +16,11 @@ export default function Register() {
 
   useEffect(() => {
     if (
+      !formRef?.current?.name ||
+      !formRef?.current?.surname ||
+      !formRef?.current?.birthday ||
       !formRef?.current?.email ||
+      !formRef?.current?.terms ||
       !formRef?.current?.password ||
       !formRef?.current?.["confirm-password"]
     )
@@ -27,16 +30,13 @@ export default function Register() {
     setSearch(`?${params?.toString()}`);
 
     // Get the values of the email, password, and confirm-password parameters
-    (formRef?.current?.name as any).value = params?.get("name");
-    (formRef?.current?.surname as any).value = params?.get("surname");
-    (formRef?.current?.birthday as any).value = params?.get("birthday");
-    (formRef?.current?.email as any).value = params?.get("email");
-    (formRef?.current?.password as any).value = params?.get("password");
-    (formRef?.current?.["confirm-password"] as any).value =
-      params?.get("confirm-password");
-    (formRef?.current?.["terms"] as any).checked = JSON.parse(
-      String(params?.get("terms"))
-    );
+    setFormFields(formRef, "name", "value", params?.get("name") || "");
+    setFormFields(formRef, "surname", "value", params?.get("surname") || "");
+    setFormFields(formRef, "birthday", "value", params?.get("birthday") || "");
+    setFormFields(formRef, "email", "value", params?.get("email") || "");
+    setFormFields(formRef, "password", "value", params?.get("password") || "");
+    setFormFields(formRef, "confirm-password", "value", params?.get("confirm-password") || "");
+    setFormFields(formRef, "terms", "checked", JSON.parse(String(params?.get("terms"))) || "");
   }, []);
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
@@ -61,6 +61,7 @@ export default function Register() {
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setFormFields(formRef, "surname", "value", e.currentTarget?.surname?.value?.trim());
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -73,8 +74,8 @@ export default function Register() {
       // localStorage.setItem("success-registered", email || "");
       // await requestToSendVerify(email || "");
 
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.warning(error?.response?.data?.message || "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.", { position: "top-center" });
     }
   }
 
@@ -125,8 +126,6 @@ export default function Register() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Doe"
                 onChange={handleChange}
-                onMouseLeave={()=>console.log("ishladi !")
-                }
                 required
               />
             </div>
@@ -144,8 +143,6 @@ export default function Register() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="22.08.2004"
                 onChange={handleChange}
-                onMouseLeave={()=>console.log("ishladi !")
-                }
                 required
               />
             </div>
@@ -163,8 +160,6 @@ export default function Register() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="johndoe@gmail.uz"
                 onChange={handleChange}
-                onMouseLeave={()=>console.log("ishladi !")
-                }
                 required
               />
             </div>
@@ -182,8 +177,6 @@ export default function Register() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="••••••••"
                 onChange={handleChange}
-                onMouseLeave={()=>console.log("ishladi !")
-                }
                 minLength={12}
                 required
               />
@@ -202,8 +195,6 @@ export default function Register() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:outline-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="••••••••"
                 onChange={handleChange}
-                onMouseLeave={()=>console.log("ishladi !")
-                }
                 disabled={
                   !formRef?.current?.password?.value ||
                   formRef?.current?.password?.value?.length < 12
@@ -252,8 +243,6 @@ export default function Register() {
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-600 focus:outline-blue-600 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                   required
                   onChange={handleChange}
-                  onMouseLeave={()=>console.log("ishladi !")
-                  }
                 />
               </div>
               <div className="ml-3 text-sm">
@@ -280,6 +269,7 @@ export default function Register() {
                 formRef?.current?.["confirm-password"]?.value !==
                   formRef?.current?.password?.value
               }
+              onClick={()=> trimValuesChecker(formRef, "REGISTER")}
             >
               Hisobni ochish
             </button>

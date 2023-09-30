@@ -37,7 +37,7 @@ export default function Input({ value, onChange, handleSubmit }: IInput) {
         type="submit"
         disabled={!value?.trim() || value?.length > 500}
         onClick={handleSubmit}
-        className={`relative inline-flex justify-center p-2 pl-0 rounded-full ${value?.length > 500 ?'cursor-default text-red-600 dark:text-red-500' : value?.length === 0 ? 'cursor-default text-blue-600 dark:text-blue-500' : 'cursor-pointer text-blue-600 dark:text-blue-500'} outline-none duration-200 focus:scale-105`}
+        className={`relative inline-flex justify-center p-2 pl-0 rounded-full ${value?.length > 500 ?'cursor-default text-red-600 dark:text-red-500' : value?.length === 0 || !value?.trim() ? 'cursor-default text-blue-600 dark:text-blue-500' : 'cursor-pointer text-blue-600 dark:text-blue-500'} outline-none duration-200 focus:scale-105`}
       >
         <svg
           className="w-5 h-5 rotate-90"

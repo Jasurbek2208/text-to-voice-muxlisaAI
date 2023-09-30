@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
-import { ITextToVoiceHistory } from "../types/types";
+import { ITextToVoiceHistory } from "../types";
 
 interface IUser {
   isAuth: boolean;
@@ -50,7 +50,7 @@ const store = createSlice({
           Cookies.set("$T$O$K$E$N$", action?.payload?.data?.access_token, { expires: 10 });
           break;
 
-        default:
+        case "LOGOUT":
           state.user = {
             isAuth: false,
             name: "Guest",

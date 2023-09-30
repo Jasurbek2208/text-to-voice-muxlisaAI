@@ -1,10 +1,10 @@
 import Cookies from "js-cookie";
 import { Dispatch } from "react";
-import { myAxios } from "../service/axios";
+import { myAxios } from "@service/axios";
 
 // Redux store
 import { AnyAction } from "@reduxjs/toolkit";
-import { userAuth } from "../store/store";
+import { userAuth } from "@store/store";
 
 export async function checkTokenValidity(dispatch: Dispatch<AnyAction>) {
   try {

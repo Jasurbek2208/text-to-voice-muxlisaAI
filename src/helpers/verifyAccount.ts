@@ -1,8 +1,10 @@
-import { myAxios } from "../service/axios";
+import { myAxios } from "@service/axios";
 
 // Types
-import { IVerifyAccountParams } from "../types/types";
-import { refreshedNavigate } from "./refreshedNavigate";
+import { IVerifyAccountParams } from "../types";
+
+// Helpers
+import { refreshedNavigate } from "./index";
 
 export async function verifyAccount(params: IVerifyAccountParams) {
   try {
@@ -13,7 +15,7 @@ export async function verifyAccount(params: IVerifyAccountParams) {
     return error?.response?.data;
   }
 }
-AbortController
+
 export async function requestToSendVerify(email: string) {
   const formData = new FormData();
   formData.append(

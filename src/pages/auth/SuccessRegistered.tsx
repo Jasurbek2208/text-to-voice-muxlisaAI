@@ -3,14 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
-import Loader from "../../components/loader/Loader";
+import Loader from "@components/loader/Loader";
 
 // Helpers
-import { deleteUser } from "../../helpers/deleteUser";
-import { requestToSendVerify, verifyAccount } from "../../helpers/verifyAccount";
+import { deleteUser, requestToSendVerify, verifyAccount } from "@helpers/index";
 
 // Types
-import { IVerifyAccountParams } from "../../types/types";
+import { IVerifyAccountParams } from "../../types";
 interface IVerifiedStatus {
   name: string;
   email: string;

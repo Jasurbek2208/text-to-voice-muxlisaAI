@@ -1,4 +1,4 @@
-import { myAxios } from "../service/axios";
+import { myAxios } from "@service/axios";
 
 export async function getHistory(historyType: 1 | 2, userId: string) {
   try {
