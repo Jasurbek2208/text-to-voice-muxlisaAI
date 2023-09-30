@@ -1,4 +1,5 @@
-import React from "react";
+import { getCurrentAudio } from "@helpers/muxlisaAIAPI";
+import React, { useRef } from "react";
 
 // Types
 import { IMessageConfigs } from "../../types";
@@ -10,10 +11,15 @@ interface IMessage {
 }
 
 export default function VoiceMessage({ message, isUser, rounded }: IMessage) {
+  const currentAudioRef = useRef<HTMLAudioElement>(null);
+
   return (
-    <audio controls className={`${isUser ? 'self-end sm:mr-9 mr-3' : 'self-start sm:ml-9 ml-3'} block sm:max-w-xs max-w-[60%] w-full p-2.5 bg-gray-100 border border-gray-200 rounded-t-xl ${rounded} shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}>
-      <source src={message?.value || "audio"} type="audio/*" />
-        Brauzeringiz audio elementini qo'llab-quvvatlamaydi.
-    </audio>
+    <>
+      <div onClick={() => getCurrentAudio(currentAudioRef, message?.value || "")}>Get this audio</div>
+      <audio ref={currentAudioRef} controls className={`${isUser ? 'self-end sm:mr-9 mr-3' : 'self-start sm:ml-9 ml-3'} block sm:max-w-xs max-w-[60%] w-full p-2.5 bg-gray-100 border border-gray-200 rounded-t-xl ${rounded} shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}>
+        <source src={message?.value || "audio"} type="audio/*" />
+          Brauzeringiz audio elementini qo'llab-quvvatlamaydi.
+      </audio>
+    </>
   )
 }

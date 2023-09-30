@@ -4,7 +4,7 @@ export { checkingAuthURL, setAuthURL } from "./checkingAuthURL";
 export { setFormFields as setFormFields } from "./setFormFields";
 export { scrollToBottom as scrollToBottom } from "./scrollToBottom";
 export { verifyAccount, requestToSendVerify } from "./verifyAccount";
-export { addHistory, clearHistory, getHistory } from "./muxlisaAIAPI";
+export { addHistory, clearHistory, getHistory, getCurrentAudio } from "./muxlisaAIAPI";
 export { trimValuesChecker as trimValuesChecker } from "./trimValuesChecker";
 export { refreshedNavigate as refreshedNavigate } from "./refreshedNavigate";
 export { checkTokenValidity as checkTokenValidity } from "./checkTokenValidity";

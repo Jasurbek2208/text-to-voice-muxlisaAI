@@ -49,26 +49,10 @@ export default function TextToVoice() {
     scrollToBottom(contentRef);
   }, [textToVoiceHistory]);
 
-  const [audios, setAudios] = useState("");
-  const audioRef = useRef<any>();
-
-  const playAudio = () => {
-    // Create an audio blob from the base64 data
-    const audioBlob = new Blob([audios], { type: "audio/ogg" });
-    const audioUrl = URL.createObjectURL(audioBlob);
-    console.log(audioUrl);
-    
-    audioRef.current.src = audioUrl;
-    audioRef.current.play();
-  };
   useEffect(() => {
     if (!userId) return;
 
     (async () => {
-      // const responses = await axios.get("/muxlisaAI/testing");
-      // console.log(responses);
-
-      // setAudios(responses.data);
       const response = await getHistory(1, userId);
       dispatch(textToVoiceHistoryAdd(response));
     })();
@@ -121,13 +105,6 @@ export default function TextToVoice() {
         ref={contentRef}
         className="w-full py-5 max-h-messagesH h-full overflow-y-scroll scroll-no-width"
       >
-        {/* <button onClick={playAudio}>Play Audio</button>
-        {audios && (
-          <audio ref={audioRef} controls>
-            <source type="audio/ogg" />
-            Your browser does not support the audio element.
-          </audio>
-        )} */}
         {textToVoiceHistory &&
           textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
             <div
@@ -140,7 +117,7 @@ export default function TextToVoice() {
                 rounded={BORDER_BOTTOM_LEFT}
               />
               <VoiceMessage
-                message={textToVoiceHistory[0]?.request}
+                message={message?.response}
                 isUser={false}
                 rounded={BORDER_BOTTOM_RIGHT}
               />

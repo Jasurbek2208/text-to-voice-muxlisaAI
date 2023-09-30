@@ -1,4 +1,5 @@
 import { myAxios } from "@service/axios";
+import { RefObject } from "react";
 
 export async function getHistory(historyType: 1 | 2, userId: string) {
   try {
@@ -29,6 +30,22 @@ export async function addHistory(type: "text-to-voice" | "voice-to-text", userId
     const response = await myAxios.post(`/muxlisaAI/${type}/add-history`, formData);
     console.log(response);
 
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getCurrentAudio(currentAudioRef: RefObject<HTMLAudioElement>, audioId: string) {
+  try {
+    const response = await myAxios.get(`/muxlisaAI/current-audio/${audioId}`, { responseType: 'arraybuffer' })
+    const blob = new Blob([response?.data], { type: 'audio/ogg' });
+    const audioUrl = URL.createObjectURL(blob);
+    
+    if(currentAudioRef.current) {
+      currentAudioRef.current.src = audioUrl;
+      currentAudioRef.current.play();
+    }
+    
   } catch (error) {
     console.log(error);
   }
