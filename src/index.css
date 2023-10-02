@@ -5,6 +5,9 @@
 :root {
   --blue: rgb(37 99 235 / 1);
   --hoveredBlue: rgb(18, 72, 189);
+  --dark: rgba(52, 53, 65, 1);
+  --darker: rgba(52, 53, 68, 1);
+  --smallDark: rgb(177, 177, 179);
 }
 
 ::-webkit-scrollbar {
@@ -25,5 +28,34 @@
 .scroll-no-width::-webkit-scrollbar {
   width: 3.5px;
   height: 3.5px;
-  background: none
+  background: none;
+}
+
+/* Progressbar */
+progress {
+  border-radius: 7px;
+  height: 4px;
+  margin-left: -11.5%;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+progress::-webkit-progress-bar {
+  background: var(--smallDark);
+  border-radius: 7px;
+}
+
+progress::-webkit-progress-value {
+  background: var(--darker);
+  border-radius: 7px;
+  box-shadow: var(--smallDark);
+}
+
+progress::-moz-progress-bar {
+  background: var(--smallDark);
+  border-radius: 7px;
+}
+
+.three-dost {
+  background-image: radial-gradient(circle, black 2px, transparent 2px);
+  background-size: 100% 33.33%;
 }
