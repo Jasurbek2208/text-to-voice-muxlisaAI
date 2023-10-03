@@ -43,10 +43,13 @@ export async function getCurrentAudio(currentAudioRef: RefObject<HTMLAudioElemen
     
     if(currentAudioRef.current) {
       currentAudioRef.current.src = audioUrl;
-      currentAudioRef.current.play();
+      // currentAudioRef.current.play();
     }
+    return true;
     
   } catch (error) {
     console.log(error);
+    
+    return false;
   }
 }

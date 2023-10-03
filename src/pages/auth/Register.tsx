@@ -71,8 +71,8 @@ export default function Register() {
       const response = await myAxios.post("/auth/register", formData);
       console.log(response);
       
-      // localStorage.setItem("success-registered", email || "");
-      // await requestToSendVerify(email || "");
+      localStorage.setItem("success-registered", email || "");
+      await requestToSendVerify(email || "");
 
     } catch (error: any) {
       toast.warning(error?.response?.data?.message || "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.", { position: "top-center" });

@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 
 // Store redux
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "@hooks/reduxSelector";
-import { clearTextToVoiceHistory, clearVoiceToTextHistory, userAuth } from "@store/store";
+import { changeAIVoiceGender, clearTextToVoiceHistory, clearVoiceToTextHistory, userAuth } from "@store/store";
 
 // Helpers
 import { clearHistory } from "@helpers/index";
 
 export default function DropDown() {
   const dispatch = useDispatch();
-  const { user: { userId } } = useTypedSelector(store => store?.store)
+  const { user: { userId }, AIVoiceGender } = useTypedSelector(store => store?.store)
   
   const pathname = useLocation().pathname as "text-to-voice" | "voice-to-text";
 
@@ -28,6 +29,13 @@ export default function DropDown() {
 
     dispatch(pathname === "text-to-voice" ? clearTextToVoiceHistory(type) : clearVoiceToTextHistory(type));
     clearHistory(pathname, userId);
+    Cookies.remove("$text$to$voice$audios$");
+    localStorage.removeItem("$text$to$voic$AI$voice$gender$");
+  }
+
+  function changeVoiceGender() {
+    dispatch(changeAIVoiceGender(AIVoiceGender === "Male" ? "Female" : "Male"))
+    localStorage.setItem("$text$to$voic$AI$voice$gender$", AIVoiceGender === "Male" ? "Female" : "Male");
   }
 
   useEffect(() => {
@@ -56,8 +64,8 @@ export default function DropDown() {
 
   const menuItems = [
     {
-      label: "Yozishmalarni tozalash",
-      onClick: clearHistoryChange,
+      label: `AI ovoz jinsi: ${AIVoiceGender}`,
+      onClick: changeVoiceGender,
       icon: [
         "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
         "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
@@ -72,6 +80,22 @@ export default function DropDown() {
     },
     {
       label: "Ushbu yozishmalar tarixidan nusxa olish",
+      icon: [
+        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
+        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+      ],
+    },
+    {
+      label: "Yozishmalarni tozalash",
+      onClick: clearHistoryChange,
+      icon: [
+        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
+        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+      ],
+    },
+    {
+      label: "Audio keshni tozalash",
+      onClick: () => Cookies.remove("$text$to$voice$audios$"),
       icon: [
         "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
         "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",

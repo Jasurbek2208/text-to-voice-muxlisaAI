@@ -9,6 +9,8 @@ export default {
       backgroundColor: {
         dark: 'rgba(52,53,65,1)',
         darker: 'rgba(52,53,68,1)',
+        opacityDark: "rgba(52,53,68, .5)",
+        opacityWhite: "rgb(243 244 246 / .5)",
       },
       height: {
         dvh: '100dvh',
@@ -20,6 +22,12 @@ export default {
       minHeight: {
         dvh: '100dvh',
       },
+      fill: {
+        darker: 'rgba(52,53,68,1)',
+      },
+      textColor: {
+        darker: 'rgba(52,53,68,1)',
+      }
     },
   },
   plugins: [],

@@ -12,6 +12,7 @@ interface IUser {
 
 interface IInitialState {
   isLoading: boolean;
+  AIVoiceGender: "Male" | "Female";
   textToVoiceHistory: ITextToVoiceHistory[];
   voiceToTextHistory: ITextToVoiceHistory[];
   user: IUser;
@@ -19,6 +20,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   isLoading: true,
+  AIVoiceGender: (localStorage.getItem("$text$to$voic$AI$voice$gender$") as "Male" | "Female") || "Male",
   textToVoiceHistory: [],
   voiceToTextHistory: [],
   user: {
@@ -36,6 +38,9 @@ const store = createSlice({
   reducers: {
     changeLoading: (state, action) => {
       state.isLoading = action?.payload;
+    },
+    changeAIVoiceGender: (state, action) => {
+      state.AIVoiceGender = action?.payload;
     },
     userAuth: (state, action) => {
       switch (action?.payload?.type) {
@@ -79,6 +84,7 @@ const store = createSlice({
 
 export const {
   changeLoading,
+  changeAIVoiceGender,
   userAuth,
   textToVoiceHistoryAdd,
   textToVoiceHistoryChange,

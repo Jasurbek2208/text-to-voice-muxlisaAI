@@ -6,6 +6,7 @@ export interface IRootState {
 }
 
 export interface IMessageConfigs {
+  id?: string;
   date: string;
   value: string;
 }

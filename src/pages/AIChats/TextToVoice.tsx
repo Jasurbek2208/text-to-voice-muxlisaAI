@@ -28,7 +28,7 @@ export default function TextToVoice() {
   const dispatch = useDispatch();
   const {
     user: { userId },
-    textToVoiceHistory,
+    textToVoiceHistory, AIVoiceGender
   } = useTypedSelector((s) => s?.store);
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export default function TextToVoice() {
     })();
   }, [userId]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const data: ITextToVoiceHistory = {
       id: String(new Date()?.getTime()),
       request: {
@@ -67,32 +67,34 @@ export default function TextToVoice() {
       },
       response: {
         date: getFullTime(),
-        value: "AI javobini olishda xatolik yuz berdi!",
+        value: "",
       },
     };
 
     handleChange("");
-    generateTextToVoice(data);
+    await generateTextToVoice(data);
 
     dispatch(textToVoiceHistoryChange(data));
   };
 
   async function generateTextToVoice(data: ITextToVoiceHistory) {
     const formData = new FormData();
-    formData.append("speaker_id", "1");
+    formData.append("speaker_id", AIVoiceGender === "Male" ? "1" : "0");
     formData.append("text", data?.request?.value);
     formData.append("userRequestTime", getCurrentTime());
-    formData.append("user_id", "1690287141925");
+    formData.append("user_id", userId);
 
     try {
-      const response = await myAxios.post(
+      const { data: response} = await myAxios.post(
         "/muxlisaAI/text-to-voice",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      console.log(response);
+      data.response.value = (response as ITextToVoiceHistory)?.response?.value;
+      console.log(data);
+      
     } catch (error) {
       console.log(error);
     }
