@@ -18,14 +18,11 @@ export async function verifyAccount(params: IVerifyAccountParams) {
 
 export async function requestToSendVerify(email: string) {
   const formData = new FormData();
-  formData.append(
-    "email",
-    email || localStorage.getItem("success-registered") || ""
-  );
-  refreshedNavigate("/success-registered");
-
+  formData.append("email", email || localStorage.getItem("success-registered") || "");
+  
   try {
     await myAxios.post("/auth/sendVerify", formData);
+    refreshedNavigate("/success-registered");
   } catch {
     return "Texnik xato yuz berdi! Qayta urinib ko'ring!";
   }

@@ -13,7 +13,7 @@ export interface IMessageConfigs {
 
 export interface ITextToVoiceHistory {
   type?: string;
-  id: string;
+  _id: string;
   request: IMessageConfigs;
   response: IMessageConfigs;
 }

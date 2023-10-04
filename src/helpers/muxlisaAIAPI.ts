@@ -11,9 +11,9 @@ export async function getHistory(historyType: 1 | 2, userId: string) {
   }
 }
 
-export async function clearHistory(type: "text-to-voice" | "voice-to-text", userId: string) {
+export async function clearHistory(historyType: "textToVoice" | "voiceToText", userId: string) {
   try {
-    const response = await myAxios.delete(`/muxlisaAI/${type}/clear-history/${userId}`);
+    const response = await myAxios.delete(`/muxlisaAI/clear-chat-history/${userId}/?history-type=${historyType}`);
     console.log(response);
 
   } catch (error) {

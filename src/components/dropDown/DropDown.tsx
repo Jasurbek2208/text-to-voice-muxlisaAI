@@ -15,6 +15,7 @@ export default function DropDown() {
   const { user: { userId }, AIVoiceGender } = useTypedSelector(store => store?.store)
   
   const pathname = useLocation().pathname as "text-to-voice" | "voice-to-text";
+  const historyType: "textToVoice" | "voiceToText" = pathname === "text-to-voice" ? "textToVoice" : "voiceToText";
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,7 +29,7 @@ export default function DropDown() {
     const type = { type: "CLEAR_HISTORY" }
 
     dispatch(pathname === "text-to-voice" ? clearTextToVoiceHistory(type) : clearVoiceToTextHistory(type));
-    clearHistory(pathname, userId);
+    clearHistory(historyType, userId);
     Cookies.remove("$text$to$voice$audios$");
     localStorage.removeItem("$text$to$voic$AI$voice$gender$");
   }

@@ -60,7 +60,7 @@ export default function TextToVoice() {
 
   const handleSubmit = async () => {
     const data: ITextToVoiceHistory = {
-      id: String(new Date()?.getTime()),
+      _id: String(new Date()?.getTime()),
       request: {
         date: getFullTime(),
         value: text?.trim(),
@@ -82,7 +82,7 @@ export default function TextToVoice() {
     formData.append("speaker_id", AIVoiceGender === "Male" ? "1" : "0");
     formData.append("text", data?.request?.value);
     formData.append("userRequestTime", getCurrentTime());
-    formData.append("user_id", userId);
+    formData.append("userId", userId);
 
     try {
       const { data: response} = await myAxios.post(
@@ -110,7 +110,7 @@ export default function TextToVoice() {
         {textToVoiceHistory &&
           textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
             <div
-              key={message?.id}
+              key={message?._id}
               className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7"
             >
               <Message

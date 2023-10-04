@@ -35,5 +35,6 @@ export default function Router() {
   const currentRoutes = isAuth ? routes : authRoutes;
   const routers = useRoutes(currentRoutes);
 
-  return isLoading ? <Loader /> : <Suspense fallback={<Loader />}>{routers}</Suspense>;
+  // return isLoading ? <Loader /> : <Suspense fallback={<Loader />}>{routers}</Suspense>;
+  return isLoading ? <Loader /> : <Suspense fallback={<Loader />}><h1 className="text-center pt-56 text-red-600">Texnik ish jarayoni. saytdan foydalanish bizni ma'li-umotlar bazamiz buzilishiga olib kelishi mumkin. Tushundingiz degan umiddaman!</h1></Suspense>;
 }

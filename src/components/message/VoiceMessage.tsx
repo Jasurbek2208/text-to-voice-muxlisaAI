@@ -52,7 +52,7 @@ export default function VoiceMessage({ message, isUser, rounded }: IMessage) {
       <audio
         controls
         ref={currentAudioRef}
-        className={`${isUser ? "self-end sm:mr-9 mr-3" : "self-start sm:ml-9 ml-3"} block max-w-[255px] p-3 bg-gray-100 border border-gray-200 rounded-t-xl ${rounded} shadow outline-1 outline-blue-600 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}
+        className={`${isUser ? "self-end sm:mr-9 mr-3" : "self-start sm:ml-9 ml-3"} block max-w-[255px] p-3 bg-gray-100 border border-gray-200 rounded-t-xl ${rounded} shadow outline-none hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700`}
       >
         <source type="audio/*" />
         Brauzeringiz audio elementini qo'llab-quvvatlamaydi.
