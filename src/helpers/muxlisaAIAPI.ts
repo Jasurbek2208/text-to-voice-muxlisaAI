@@ -36,11 +36,16 @@ export async function addHistory(type: "text-to-voice" | "voice-to-text", userId
 }
 
 export async function getCurrentAudio(currentAudioRef: RefObject<HTMLAudioElement>, audioId: string) {
+  const audioType = window.location.pathname === "/text-to-voice" ? "AIAudios" : "UsersAudios";
+
   try {
-    const response = await myAxios.get(`/muxlisaAI/current-audio/${audioId}`, { responseType: 'arraybuffer' })
-    const blob = new Blob([response?.data], { type: 'audio/ogg' });
-    const audioUrl = URL.createObjectURL(blob);
+    const response = await myAxios.get(`/muxlisaAI/current-audio/${audioId}/?audio-type=${audioType}`)
+    const data = response?.data;
     
+    const uint8Array = new Uint8Array(data.data);
+    const blob = new Blob([uint8Array], { type: 'audio/ogg' });
+    const audioUrl = URL.createObjectURL(blob);
+      
     if(currentAudioRef.current) {
       currentAudioRef.current.src = audioUrl;
       // currentAudioRef.current.play();

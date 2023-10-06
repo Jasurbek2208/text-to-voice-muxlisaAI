@@ -69,6 +69,7 @@ const store = createSlice({
     },
     textToVoiceHistoryAdd: (state, action) => {
       state.textToVoiceHistory = action?.payload;
+      // state.textToVoiceHistory = [action?.payload[0]];
     },
     textToVoiceHistoryChange: (state, action) => {
       state?.textToVoiceHistory.push(action?.payload);

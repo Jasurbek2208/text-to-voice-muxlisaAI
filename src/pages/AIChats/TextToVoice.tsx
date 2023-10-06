@@ -6,10 +6,7 @@ import { BORDER_BOTTOM_LEFT, BORDER_BOTTOM_RIGHT } from "../../variables";
 
 // Redux Store
 import { useDispatch } from "react-redux";
-import {
-  textToVoiceHistoryAdd,
-  textToVoiceHistoryChange,
-} from "@store/store";
+import { textToVoiceHistoryAdd, textToVoiceHistoryChange } from "@store/store";
 import { useTypedSelector } from "@hooks/reduxSelector";
 
 // Components
@@ -23,12 +20,14 @@ import { getHistory, getFullTime, scrollToBottom } from "@helpers/index";
 
 // Types
 import { ITextToVoiceHistory } from "../../types";
+import Presentation from "@components/presentation/Presentation";
 
 export default function TextToVoice() {
   const dispatch = useDispatch();
   const {
     user: { userId },
-    textToVoiceHistory, AIVoiceGender
+    textToVoiceHistory,
+    AIVoiceGender,
   } = useTypedSelector((s) => s?.store);
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -81,11 +80,11 @@ export default function TextToVoice() {
     const formData = new FormData();
     formData.append("speaker_id", AIVoiceGender === "Male" ? "1" : "0");
     formData.append("text", data?.request?.value);
-    formData.append("userRequestTime", getCurrentTime());
+    formData.append("userRequestTime", data?.request?.date);
     formData.append("userId", userId);
 
     try {
-      const { data: response} = await myAxios.post(
+      const { data: response } = await myAxios.post(
         "/muxlisaAI/text-to-voice",
         formData,
         {
@@ -93,8 +92,6 @@ export default function TextToVoice() {
         }
       );
       data.response.value = (response as ITextToVoiceHistory)?.response?.value;
-      console.log(data);
-      
     } catch (error) {
       console.log(error);
     }
@@ -105,26 +102,31 @@ export default function TextToVoice() {
       <Navbar />
       <div
         ref={contentRef}
-        className="w-full py-5 max-h-messagesH h-full overflow-y-scroll scroll-no-width"
+        className={`${textToVoiceHistory && textToVoiceHistory?.length > 0 && "flex flex-col justify-end "} w-full max-h-messagesH h-full overflow-y-scroll scroll-no-width`}
       >
-        {textToVoiceHistory &&
-          textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
-            <div
-              key={message?._id}
-              className="flex flex-col sm:gap-10 gap-7 w-full sm:mt-10 mt-7"
-            >
-              <Message
-                message={message?.request}
-                isUser={true}
-                rounded={BORDER_BOTTOM_LEFT}
-              />
-              <VoiceMessage
-                message={message?.response}
-                isUser={false}
-                rounded={BORDER_BOTTOM_RIGHT}
-              />
-            </div>
-          ))}
+        <div className={`py-2.5 w-full max-w-[900px] mx-auto ${textToVoiceHistory?.length === 0 ? " h-full max-h-min" : " h-auto max-h-full"}`}>
+          {textToVoiceHistory && textToVoiceHistory?.length > 0 ? (
+            textToVoiceHistory?.map((message: ITextToVoiceHistory) => (
+              <div
+                key={message?._id}
+                className="flex flex-col gap-0 w-full sm:my-5 my-2.5"
+              >
+                <Message
+                  message={message?.request}
+                  isUser={true}
+                  rounded={BORDER_BOTTOM_LEFT}
+                />
+                <VoiceMessage
+                  message={message?.response}
+                  isUser={false}
+                  rounded={BORDER_BOTTOM_RIGHT}
+                />
+              </div>
+            ))
+          ) : (
+            <Presentation presentationType="textToVoice" />
+          )}
+        </div>
       </div>
       <Input value={text} onChange={handleChange} handleSubmit={handleSubmit} />
     </div>

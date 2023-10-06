@@ -27,6 +27,9 @@ export default {
       },
       textColor: {
         darker: 'rgba(52,53,68,1)',
+      },
+      fontSize: {
+        xxs: "0.70rem"
       }
     },
   },

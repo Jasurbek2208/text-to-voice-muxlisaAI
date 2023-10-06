@@ -64,19 +64,19 @@ progress::-moz-progress-bar {
 /* Audio tag custom styles */
 audio {
   padding: 0px !important;
-  height: 76px;
+  height: 80px;
   display: flex !important;
   align-items: flex-start !important;
 }
 
 audio::-webkit-media-controls-panel {
-  height: 64px !important;
+  height: 62px !important;
   display: flex !important;
   justify-content: space-between !important;
 }
 
 audio::-webkit-media-controls {
-  height: 76px !important;
+  height: 80px !important;
   display: flex !important;
   justify-content: space-between !important;
   gap: 0px !important;
@@ -90,7 +90,7 @@ audio::-webkit-media-controls-play-button {
 audio::-webkit-media-controls-timeline {
   position: absolute;
   width: 90%;
-  bottom: 2px;
+  bottom: 6px;
   left: -4px;
 }
 
