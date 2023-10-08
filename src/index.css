@@ -8,6 +8,8 @@
   --dark: rgba(52, 53, 65, 1);
   --darker: rgba(52, 53, 68, 1);
   --smallDark: rgb(177, 177, 179);
+  --opacityDark: rgba(52,53,68, .5);
+  --opacityWhite: rgb(243 244 246 / .5);
 }
 
 ::-webkit-scrollbar {
@@ -31,30 +33,6 @@
   background: none;
 }
 
-/* Progressbar */
-progress {
-  border-radius: 7px;
-  height: 4px;
-  margin-left: -11.5%;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-}
-
-progress::-webkit-progress-bar {
-  background: var(--smallDark);
-  border-radius: 7px;
-}
-
-progress::-webkit-progress-value {
-  background: var(--darker);
-  border-radius: 7px;
-  box-shadow: var(--smallDark);
-}
-
-progress::-moz-progress-bar {
-  background: var(--smallDark);
-  border-radius: 7px;
-}
-
 .three-dost {
   background-image: radial-gradient(circle, black 2px, transparent 2px);
   background-size: 100% 33.33%;
@@ -73,6 +51,7 @@ audio::-webkit-media-controls-panel {
   height: 62px !important;
   display: flex !important;
   justify-content: space-between !important;
+  background: var(--opacityDark) !important;
 }
 
 audio::-webkit-media-controls {

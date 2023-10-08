@@ -38,12 +38,12 @@ export default function TermsConditions() {
 
   return (
     <div className="w-full max-w-[700px] mx-auto h-[100dvh] px-6 pt-8">
-      <h1 className="text-center mb-6 text-2xl font-semibold text-white dark:text-white">
+      <h1 className="text-center mb-6 text-2xl font-semibold text-gray-600 dark:text-gray-300">
         Text to Voice
       </h1>
-      <div className="w-full h-[70dvh] p-6 space-y-4 whitespace-break-spaces break-words md:space-y-6 sm:p-8 overflow-y-auto bg-gray-100 rounded-lg shadow">
+      <div className="w-full h-[70dvh] p-6 space-y-4 whitespace-break-spaces break-words md:space-y-6 sm:p-8 overflow-y-auto bg-gray-100 dark:bg-gray-800 rounded-lg shadow">
         <h2 className="text-center text-blue-600 text-xl font-bold">Foydalanish shartlari:</h2>
-        <p>
+        <p className="text-gray-600 dark:text-gray-300">
           Assalomu alaykum. Siz <a href="https://text-to-voice-muxlisa-ai.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600">texttovoice.uz</a> saytidan foydalanishingiz uchun oldin ushbu saytdan ro'yxatdan o'tishingiz va quyidagi foydalanish shartlari bilan tanishib chiqib, <b>"Men Foydalanish shartlarni qabul qilaman"</b> deb yozilgan belgilash katagini yoqqan holda ushbu shartlarga rozilik bildirishingiz kerak: <br /><br />Ushbu saytdan ro'yxatdan o'tib siz o'zingiz kiritgan ma'lumotlaringiz bizning ma'lumotlar bazamizda saqlanishi va saytdagi faoliyatingizda(to'lov qilishda, pullik xizmatlardan foydalanishda) ishlatilishi mumkin. Va bu ishlarning barchasi sizning ushbu saytdagi profilingiz xavfsizligi ta'minlanishi uchun qaratilgan. <b>To'lov qilinganidan so'ng, pullar ortga qaytarilmaydi, chunki siz bunga rozilik bildirgansiz, shuni unutmang!</b>
         </p>
         <div className="flex items-start">

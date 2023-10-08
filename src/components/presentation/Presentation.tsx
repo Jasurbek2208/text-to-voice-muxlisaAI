@@ -9,7 +9,7 @@ export default function Presentation({ presentationType }: IPresentation) {
   return (
     <div className="w-full h-full flex place-items-center">
       <div className="p-7 sm:w-[450px] w-11/12 h-max m-auto border border-gray-600 rounded-2xl shadow-lg">
-        <p className="text-white font-mono">
+        <p className="text-gray-600 dark:text-gray-300 font-mono">
           {presentationType === "textToVoice"
             ? `Kerakli xabarni yuboring va sizga yuborgan xabaringiz ovozli xabar
           ko'rinishida qayta yuboriladi. Ko'pi bilan bitta xabarda 500 ta belgi

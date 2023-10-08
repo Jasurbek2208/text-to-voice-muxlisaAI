@@ -1,16 +1,16 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
 // Toast
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Redux Store
-import reduxStore from "@store/index";
-import { Provider } from "react-redux";
+import reduxStore from '@store/index'
+import { Provider } from 'react-redux'
 
 // Router
-import Router from "@router/Router";
+import Router from '@router/Router'
 
 export default function App() {
   return (
@@ -22,12 +22,13 @@ export default function App() {
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
       />
-      <div className="bg-dark min-h-dvh h-full">
+      <div className="bg-[rgba(247,247,248,1)] dark:bg-dark min-h-dvh h-full">
         <Provider store={reduxStore}>
           <Router />
           <ToastContainer />
         </Provider>
       </div>
     </BrowserRouter>
-  );
+  )
 }
+// rgba(247,247,248,1)

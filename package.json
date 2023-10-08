@@ -1,21 +1,160 @@
 {
   "name": "text-to-voice",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.2.0",
   "type": "module",
+  "main": "src/main.tsx",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "host": "vite --host",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "description": "Oʻzbek foydalanuvchilari uchun matnni ovozli xabarga va ovozli xabarni esa matnga o'tkazish ilovasi. Ovozli xabarlar Muxlisa AI ovozli yordamchisi orqali qilinadi.",
+  "author": {
+    "name": "Jasurbek Shomaqsudov",
+    "email": "texttovoiceauz@mail.ru",
+    "url": "https://text-to-voice-muxlisa-ai.vercel.app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jasurbek2208/text-to-voice-muxlisaAI"
+  },
+  "license": "MIT",
+  "keywords": [
+    "Uzbekistan",
+    "text to voice",
+    "voice to text",
+    "speech recognition",
+    "text-to-speech",
+    "speech-to-text",
+    "muxlisa AI",
+    "voice assistant",
+    "messaging app",
+    "communication tool",
+    "audio messages",
+    "speech converter",
+    "speech technology",
+    "language processing",
+    "message transcription",
+    "voice messaging",
+    "language recognition",
+    "AI-powered chat",
+    "voice chat",
+    "conversation tool",
+    "speech synthesis",
+    "speech understanding",
+    "voice control",
+    "natural language",
+    "text conversion",
+    "audio messages",
+    "voice conversion",
+    "AI language processing",
+    "voice communication",
+    "text processing",
+    "voice interactions",
+    "voice commands",
+    "language understanding",
+    "message voiceover",
+    "voice recognition",
+    "audio transcription",
+    "AI chatbot",
+    "text analysis",
+    "voice technology",
+    "spoken language",
+    "speech-to-message",
+    "voice notes",
+    "AI-powered messaging",
+    "voice conversion tool",
+    "speech transcription",
+    "text-to-voice messages",
+    "AI voice chat",
+    "conversational AI",
+    "O'zbekiston",
+    "matndan ovozga",
+    "ovozdan matnga",
+    "matn-ovoz",
+    "ovoz-matn",
+    "muxlisa AI",
+    "ovoz yordamchi",
+    "xabarlashish dasturi",
+    "aloqa vositasi",
+    "audio xabarlari",
+    "nutqni o'zgartirish",
+    "nutq texnologiyasi",
+    "xabarni transkriptsiya qilish",
+    "ovozli xabarlashish",
+    "AI bilan dastlabki chat",
+    "ovozli chat",
+    "muloqot vositasi",
+    "nutq sintezi",
+    "nutqni tushunish",
+    "ovozni boshqarish",
+    "audio xabarlar",
+    "ovozli aloqa",
+    "ovoz buyruqlari",
+    "xabarni ovozga o'tqazish",
+    "audio transkriptsiya",
+    "AI chatboti",
+    "matnni tahlil qilish",
+    "ovoz texnologiyasi",
+    "matn-o'zgartirish",
+    "nutqni xatga o'tkazish",
+    "AI yordamchi chat",
+    "muloqot transkriptsiyasi",
+    "matn-ovoz xabarlari",
+    "AI ovozli chat"
+  ],
+  "homepage": "https://text-to-voice-muxlisa-ai.vercel.app",
+  "bugs": {
+    "url": "https://github.com/Jasurbek2208/text-to-voice-muxlisaAI/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "semi": false
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "eslintIgnore": [
+    "src/serviceWorker.ts",
+    "vite.config.ts"
+  ],
+  "stylelint": {
+    "extends": "stylelint-config-standard"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
-    "axios": "^1.5.0",
-    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
-    "react-router-dom": "^6.15.0",
-    "react-toastify": "^9.1.3",
-    "uuid": "^9.0.1"
+    "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -34,6 +173,10 @@
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
+    "react-toastify": "^9.1.3",
+    "uuid": "^9.0.1",
+    "axios": "^1.5.0",
+    "js-cookie": "^3.0.5",
     "vite": "^4.4.5",
     "vite-tsconfig-paths": "^4.2.1"
   }

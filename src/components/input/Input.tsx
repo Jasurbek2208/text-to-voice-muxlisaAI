@@ -20,7 +20,7 @@ export default function Input({ value, onChange, handleSubmit }: IInput) {
   }, [value]);
 
   return (
-    <div className="w-full h-20 max-h-20 border-t-2">
+    <div className="bg-white dark:bg-dark w-full h-20 max-h-20 border-t-2">
       {/* DropDown */}
       <div className="max-w-[900px] mx-auto flex items-center pr-2 ">
         <DropDown />

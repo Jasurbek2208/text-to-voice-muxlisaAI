@@ -81,7 +81,7 @@ export default function Register() {
 
   return (
     <section className="flex flex-col items-center justify-center px-6 pt-11 pb-7 mx-auto">
-      <h1 className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white">
+      <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-600 dark:text-gray-300">
         Text to Voice
       </h1>
       <div className="w-full bg-gray-100 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -240,7 +240,7 @@ export default function Register() {
                   aria-describedby="terms"
                   name="terms"
                   type="checkbox"
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-600 focus:outline-blue-600 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-600 focus:outline-blue-600 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                   required
                   onChange={handleChange}
                 />

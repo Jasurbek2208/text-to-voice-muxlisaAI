@@ -21,6 +21,7 @@ import { getHistory, getFullTime, scrollToBottom } from "@helpers/index";
 // Types
 import { ITextToVoiceHistory } from "../../types";
 import Presentation from "@components/presentation/Presentation";
+import Copyright from "@components/copyright/Copyright";
 
 export default function TextToVoice() {
   const dispatch = useDispatch();
@@ -37,12 +38,6 @@ export default function TextToVoice() {
     if (param?.length - 500 > 4999) return;
     setText(param);
   };
-
-  function getCurrentTime() {
-    const currentDate = new Date();
-    const isoDate = currentDate?.toISOString();
-    return isoDate;
-  }
 
   useEffect(() => {
     scrollToBottom(contentRef);
@@ -129,6 +124,7 @@ export default function TextToVoice() {
         </div>
       </div>
       <Input value={text} onChange={handleChange} handleSubmit={handleSubmit} />
+      <Copyright />
     </div>
   );
 }

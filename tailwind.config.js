@@ -17,7 +17,7 @@ export default {
       },
       maxHeight: {
         dvh: '100dvh',
-        messagesH: 'calc(100dvh - 8rem)',
+        messagesH: 'calc(100dvh - 8rem - 1.5rem)',
       },
       minHeight: {
         dvh: '100dvh',
