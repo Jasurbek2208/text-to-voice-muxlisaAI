@@ -38,7 +38,7 @@ export default function TermsConditions() {
 
   return (
     <div className="w-full max-w-[700px] mx-auto h-[100dvh] px-6 pt-8">
-      <h1 className="text-center mb-6 text-2xl font-semibold text-gray-600 dark:text-gray-300">
+      <h1 className="text-center mb-6 text-2xl font-semibold text-zinc-950 dark:text-white">
         Text to Voice
       </h1>
       <div className="w-full h-[70dvh] p-6 space-y-4 whitespace-break-spaces break-words md:space-y-6 sm:p-8 overflow-y-auto bg-gray-100 dark:bg-gray-800 rounded-lg shadow">

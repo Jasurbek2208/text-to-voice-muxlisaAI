@@ -8,8 +8,8 @@
   --dark: rgba(52, 53, 65, 1);
   --darker: rgba(52, 53, 68, 1);
   --smallDark: rgb(177, 177, 179);
-  --opacityDark: rgba(52,53,68, .5);
-  --opacityWhite: rgb(243 244 246 / .5);
+  --opacityDark: rgba(52, 53, 68, 0.5);
+  --opacityWhite: rgb(243 244 246 / 0.5);
 }
 
 ::-webkit-scrollbar {
@@ -37,57 +37,4 @@
   background-image: radial-gradient(circle, black 2px, transparent 2px);
   background-size: 100% 33.33%;
   border-radius: 0.75rem !important;
-}
-
-/* Audio tag custom styles */
-audio {
-  padding: 0px !important;
-  height: 80px;
-  display: flex !important;
-  align-items: flex-start !important;
-}
-
-audio::-webkit-media-controls-panel {
-  height: 62px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  background: var(--opacityDark) !important;
-}
-
-audio::-webkit-media-controls {
-  height: 80px !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  gap: 0px !important;
-}
-
-audio::-webkit-media-controls-play-button {
-  border-radius: 100% !important;
-  justify-self: flex-start !important;
-}
-
-audio::-webkit-media-controls-timeline {
-  position: absolute;
-  width: 90%;
-  bottom: 6px;
-  left: -4px;
-}
-
-audio::-webkit-media-controls-current-time-display {
-  margin-right: -49px;
-}
-
-audio::-webkit-media-controls-mute-button {
-  display: none !important;
-}
-
-audio::-webkit-media-controls-volume-slider {
-  display: none !important;
-}
-
-audio::-webkit-media-controls-volume-control-container.closed {
-  display: none !important;
-}
-audio::-webkit-media-controls-volume-control-container {
-  display: none !important;
 }

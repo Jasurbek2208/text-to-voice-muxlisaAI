@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html class="dark" style="color-scheme: dark;" lang="uz-UZ">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,17 +7,20 @@
     <title>Text to Voice</title>
 
     
+    <!-- Add more SEO-friendly meta tags -->
+    <meta name="robots" content="index, follow"> <!-- Allow indexing and following -->
+    <meta name="googlebot" content="index, follow"> <!-- Googlebot instructions -->
+    <meta name="bingbot" content="index, follow"> <!-- Bingbot instructions -->
+    <meta name="apple-mobile-web-app-title" content="Text to Voice"> <!-- Apple app title -->
+    <meta name="application-name" content="Text to Voice"> <!-- Windows app title -->
+
     <!-- SEO Metadata -->
-    <meta name="robots" content="index, follow"> <!-- Instructs search engines to index and follow links -->
     <meta name="author" content="Jasurbek Shomaqsudov">
     <meta name="copyright" content="© 2023 Jasurbek Shomaqsudov">
     <meta name="language" content="Uzbek">
+    <meta name="google" content="notranslate">
     <meta name="revisit-after" content="7 days"> <!-- Suggests search engines revisit your site after a certain period -->
     <meta name="distribution" content="global"> <!-- Indicates global distribution of your content -->
-    <meta name="geo.region" content="UZ">
-    <meta name="geo.placename" content="Tashkent">
-    <meta name="geo.position" content="41.34552358363662, 69.28459989568945">
-    <meta name="ICBM" content="41.34552358363662, 69.28459989568945">
     <meta name="description" content="Oʻzbek foydalanuvchilari uchun matnni ovozli xabarga va ovozli xabarni esa matnga o'tkazish ilovasi. Ovozli xabarlar Muxlisa AI ovozli yordamchisi orqali qilinadi.">
     <meta
       name="keywords"
@@ -105,6 +108,12 @@
       AI ovozli chat"
     >
     
+    <!-- Geo-specific meta tags -->
+    <meta name="geo.region" content="UZ">
+    <meta name="geo.placename" content="Tashkent">
+    <meta name="geo.position" content="41.34552358363662, 69.28459989568945">
+    <meta name="ICBM" content="41.34552358363662, 69.28459989568945">
+    
     <!-- Canonical URL for avoiding duplicate content issues -->
     <link rel="canonical" href="https://text-to-voice-muxlisa-ai.vercel.app">
     
@@ -130,11 +139,47 @@
     <meta name="twitter:url" content="https://text-to-voice-muxlisa-ai.vercel.app">
     <meta name="twitter:description" content="Oʻzbek foydalanuvchilari uchun matnni ovozli xabarga va ovozli xabarni esa matnga o'tkazish ilovasi. Ovozli xabarlar Muxlisa AI ovozli yordamchisi orqali qilinadi.">
 
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "WebApplication",
+        "name": "Text to Voice",
+        "url": "https://text-to-voice-muxlisa-ai.vercel.app",
+        "description": "Oʻzbek foydalanuvchilari uchun matnni ovozli xabarga va ovozli xabarni esa matnga o'tkazish ilovasi. Ovozli xabarlar Muxlisa AI ovozli yordamchisi orqali qilinadi.",
+        "image": "https://text-to-voice-muxlisa-ai.vercel.app/og-image.jpg",
+        "author": {
+            "@type": "Person",
+            "name": "Jasurbek Shomaqsudov",
+            "url": "https://text-to-voice-muxlisa-ai.vercel.app"
+        }
+    }
+    </script>
+
+    <!-- Structured data for Breadcrumbs (if applicable) -->
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@id": "https://text-to-voice-muxlisa-ai.vercel.app",
+                    "name": "Home"
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg">
   </head>
-  <body class="dark" style="color-scheme: dark;">
+  <body>
     <div id="root"></div>
+    <script src="./public/script.ts"></script>
     <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>

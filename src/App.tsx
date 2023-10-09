@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 // Toast
@@ -9,10 +9,17 @@ import 'react-toastify/dist/ReactToastify.css'
 import reduxStore from '@store/index'
 import { Provider } from 'react-redux'
 
+// Helpers
+import { swtichTheme } from './helpers'
+
 // Router
 import Router from '@router/Router'
 
 export default function App() {
+  useEffect(() => {
+    swtichTheme('get')
+  }, [])
+
   return (
     <BrowserRouter>
       <link
@@ -22,7 +29,7 @@ export default function App() {
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
       />
-      <div className="bg-[rgba(247,247,248,1)] dark:bg-dark min-h-dvh h-full">
+      <div className="bg-white dark:bg-dark min-h-dvh h-full duration-300">
         <Provider store={reduxStore}>
           <Router />
           <ToastContainer />
@@ -31,4 +38,4 @@ export default function App() {
     </BrowserRouter>
   )
 }
-// rgba(247,247,248,1)
+// bg-[rgba(247,247,248,1)]

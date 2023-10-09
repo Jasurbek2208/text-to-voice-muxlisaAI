@@ -55,7 +55,7 @@ export default function SuccessRegistered() {
     <Loader />
   ) : (
     <section className="flex flex-col items-center justify-center px-6 pt-11 pb-7 mx-auto">
-      <h1 className="flex items-center mb-6 text-2xl font-semibold text-gray-600 dark:text-gray-300">
+      <h1 className="flex items-center mb-6 text-2xl font-semibold text-zinc-950 dark:text-white">
         Text to Voice
       </h1>
       <div className="w-full bg-gray-100 rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700">

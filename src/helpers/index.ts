@@ -1,10 +1,11 @@
 export { deleteUser as deleteUser } from "./deleteUser";
+export { swtichTheme as swtichTheme } from "./switchTheme";
 export { getFullTime as getFullTime } from "./getFullTime";
 export { checkingAuthURL, setAuthURL } from "./checkingAuthURL";
 export { setFormFields as setFormFields } from "./setFormFields";
 export { scrollToBottom as scrollToBottom } from "./scrollToBottom";
 export { verifyAccount, requestToSendVerify } from "./verifyAccount";
-export { addHistory, clearHistory, getHistory, getCurrentAudio } from "./muxlisaAIAPI";
-export { trimValuesChecker as trimValuesChecker } from "./trimValuesChecker";
 export { refreshedNavigate as refreshedNavigate } from "./refreshedNavigate";
+export { trimValuesChecker as trimValuesChecker } from "./trimValuesChecker";
 export { checkTokenValidity as checkTokenValidity } from "./checkTokenValidity";
+export { addHistory, clearHistory, getHistory, getCurrentAudio } from "./muxlisaAIAPI";

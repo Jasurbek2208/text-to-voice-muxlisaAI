@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /private/  # Disallow any private or sensitive content
+Disallow: /admin/    # Disallow administrative sections
+Disallow: /api/      # Disallow access to API endpoints
+Disallow: /success-registered/ # Disallow success-registered pages
+Disallow: /terms-and-conditions/ # Disallow terms-and-conditions pages
+
+# Allow crawling of everything else
+Allow: /
+
+# You can add more specific rules as needed
