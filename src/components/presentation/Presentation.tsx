@@ -1,8 +1,6 @@
-import React from "react";
-
 // Types
 interface IPresentation {
-  presentationType: "textToVoice" | "voiceToText";
+  presentationType: 'textToVoice' | 'voiceToText'
 }
 
 export default function Presentation({ presentationType }: IPresentation) {
@@ -10,7 +8,7 @@ export default function Presentation({ presentationType }: IPresentation) {
     <div className="w-full h-full flex place-items-center">
       <div className="p-7 sm:w-[450px] w-11/12 h-max m-auto border border-gray-600 rounded-2xl shadow-lg">
         <p className="text-gray-600 dark:text-gray-300 font-mono duration-300">
-          {presentationType === "textToVoice"
+          {presentationType === 'textToVoice'
             ? `Kerakli xabarni yuboring va sizga yuborgan xabaringiz ovozli xabar
           ko'rinishida qayta yuboriladi. Ko'pi bilan bitta xabarda 500 ta belgi
           bo'lish kerak. Aks holda xabarni yuboraolmaysiz. Xabarlarni yuborishda
@@ -24,5 +22,5 @@ export default function Presentation({ presentationType }: IPresentation) {
         </p>
       </div>
     </div>
-  );
+  )
 }

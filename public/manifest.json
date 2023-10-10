@@ -1,100 +1,99 @@
 {
-    "name": "Text to Voice",
-    "short_name": "Text to Voice",
-    "description": "Oʻzbek foydalanuvchilari uchun matnni ovozli xabarga va ovozli xabarni esa matnga o'tkazish ilovasi. Ovozli xabarlar Muxlisa AI ovozli yordamchisi orqali qilinadi.",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "rgba(52,53,65,1)",
-    "theme_color": "rgba(52,53,65,1)",
-    "icons": [
-      {
-        "src": "/icon-72x72.png",
-        "type": "image/png",
-        "sizes": "72x72"
-      },
-      {
-        "src": "/icon-96x96.png",
-        "type": "image/png",
-        "sizes": "96x96"
-      },
-      {
-        "src": "/icon-128x128.png",
-        "type": "image/png",
-        "sizes": "128x128"
-      },
-      {
-        "src": "/icon-144x144.png",
-        "type": "image/png",
-        "sizes": "144x144"
-      },
-      {
-        "src": "/icon-152x152.png",
-        "type": "image/png",
-        "sizes": "152x152"
-      },
-      {
-        "src": "/icon-192x192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/icon-384x384.png",
-        "type": "image/png",
-        "sizes": "384x384"
-      },
-      {
-        "src": "/icon-512x512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "screenshots": [
-      {
-        "src": "/screenshot-480x320.jpg",
-        "type": "image/jpeg",
-        "sizes": "480x320"
-      },
-      {
-        "src": "/screenshot-800x600.jpg",
-        "type": "image/jpeg",
-        "sizes": "800x600"
-      },
-      {
-        "src": "/screenshot-1280x720.jpg",
-        "type": "image/jpeg",
-        "sizes": "1280x720"
-      },
-      {
-        "src": "/screenshot-1920x1080.jpg",
-        "type": "image/jpeg",
-        "sizes": "1920x1080"
-      }
-    ],
-    "related_applications": [
-      {
-        "platform": "play",
-        "url": "https://play.google.com/store/apps/details?id=com.yourapp.package",
-        "id": "com.yourapp.package"
-      },
-      {
-        "platform": "appstore",
-        "url": "https://apps.apple.com/app/your-app-name/id123456789",
-        "id": "123456789"
-      }
-    ],
-    "prefer_related_applications": true,
-    "author": {
-      "name": "Jasurbek Shomaqsudov",
-      "email": "texttovoiceauz@mail.ru",
-      "url": "https://text-to-voice-muxlisa-ai.vercel.app"
+  "name": "Text to Voice",
+  "short_name": "Text to Voice",
+  "description": "Oʻzbek foydalanuvchilari uchun matnni ovozli xabarga va ovozli xabarni esa matnga o'tkazish ilovasi. Ovozli xabarlar Muxlisa AI ovozli yordamchisi orqali qilinadi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "rgba(52,53,65,1)",
+  "theme_color": "rgba(52,53,65,1)",
+  "icons": [
+    {
+      "src": "/icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
     },
-    "lang": "uz-UZ",
-    "dir": "ltr",
-    "orientation": "any",
-    "scope": "/",
-    "serviceworker": {
-      "src": "/service-worker.js",
-      "scope": "/"
+    {
+      "src": "/icon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/icon-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-480x320.jpg",
+      "type": "image/jpeg",
+      "sizes": "480x320"
+    },
+    {
+      "src": "/screenshot-800x600.jpg",
+      "type": "image/jpeg",
+      "sizes": "800x600"
+    },
+    {
+      "src": "/screenshot-1280x720.jpg",
+      "type": "image/jpeg",
+      "sizes": "1280x720"
+    },
+    {
+      "src": "/screenshot-1920x1080.jpg",
+      "type": "image/jpeg",
+      "sizes": "1920x1080"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.yourapp.package",
+      "id": "com.yourapp.package"
+    },
+    {
+      "platform": "appstore",
+      "url": "https://apps.apple.com/app/your-app-name/id123456789",
+      "id": "123456789"
+    }
+  ],
+  "prefer_related_applications": true,
+  "author": {
+    "name": "Jasurbek Shomaqsudov",
+    "email": "texttovoiceauz@mail.ru",
+    "url": "https://text-to-voice-muxlisa-ai.vercel.app"
+  },
+  "lang": "uz-UZ",
+  "dir": "ltr",
+  "orientation": "any",
+  "scope": "/",
+  "serviceworker": {
+    "src": "/service-worker.js",
+    "scope": "/"
   }
-  
+}

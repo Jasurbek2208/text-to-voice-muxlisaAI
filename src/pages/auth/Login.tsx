@@ -1,56 +1,63 @@
-import React, { useEffect, useRef } from "react";
-import { myAxios } from "@service/axios";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import Cookies from "js-cookie";
-import { v4 } from "uuid";
+import { useEffect, useRef } from 'react'
+import { myAxios } from '@service/axios'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import Cookies from 'js-cookie'
+import { v4 } from 'uuid'
 
 // Redux store
-import { useDispatch } from "react-redux";
-import { userAuth } from "@store/store";
+import { useDispatch } from 'react-redux'
+import { userAuth } from '@store/store'
 
 // Helpers
-import { setAuthURL, setFormFields, trimValuesChecker } from "@helpers/index";
+import { setAuthURL, setFormFields, trimValuesChecker } from '@helpers/index'
 
 export default function Login() {
-  const dispatch = useDispatch();
-  const thisURLID: string = Cookies.get("$THIS$CURRENT$USER$") || v4();
+  const dispatch = useDispatch()
+  const thisURLID: string = Cookies.get('$THIS$CURRENT$USER$') || v4()
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
-    if (!formRef?.current?.email || !formRef?.current?.password) return;
+    if (!formRef?.current?.email || !formRef?.current?.password) return
 
-    const params = new URLSearchParams(window?.location?.search);
+    const params = new URLSearchParams(window?.location?.search)
 
     // Get the values of the email, password, and confirm-password parameters
-    setFormFields(formRef, "email", "value", params?.get("email") || "");
-    setFormFields(formRef, "password", "value", params?.get("password") || "");
-  }, []);
+    setFormFields(formRef, 'email', 'value', params?.get('email') || '')
+    setFormFields(formRef, 'password', 'value', params?.get('password') || '')
+  }, [])
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    const params = new URLSearchParams(window?.location?.search);
+    const params = new URLSearchParams(window?.location?.search)
 
     // Set the values of the email, password, and confirm-password parameters
-    params?.set(e?.currentTarget?.name, e?.currentTarget?.value);
+    params?.set(e?.currentTarget?.name, e?.currentTarget?.value)
 
     // Replace the current URL with the updated query parameters
-    window?.history?.replaceState(null, "", `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`);
+    window?.history?.replaceState(
+      null,
+      '',
+      `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`,
+    )
 
-    setAuthURL(thisURLID);
+    setAuthURL(thisURLID)
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget)
     try {
-      const response = await myAxios.post("/auth/login", formData);
-      dispatch(userAuth({ data: response?.data, type: "LOGIN" }));
-      toast.success(response?.data?.message, { position: "top-center" });
-
+      const response = await myAxios.post('/auth/login', formData)
+      dispatch(userAuth({ data: response?.data, type: 'LOGIN' }))
+      toast.success(response?.data?.message, { position: 'top-center' })
     } catch (error: any) {
-      toast.warning(error?.response?.data?.message || "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.", { position: "top-center" });
+      toast.warning(
+        error?.response?.data?.message ||
+          "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.",
+        { position: 'top-center' },
+      )
     }
   }
 
@@ -108,13 +115,13 @@ export default function Login() {
               </div>
               <button
                 type="submit"
-                onClick={()=> trimValuesChecker(formRef, "REGISTER")}
+                onClick={() => trimValuesChecker(formRef, 'REGISTER')}
                 className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Hisobga kirish
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Hisob ochilmaganmi?{" "}
+                Hisob ochilmaganmi?{' '}
                 <Link
                   to="/register"
                   className="font-medium text-blue-600 hover:underline dark:text-primary-500"
@@ -127,5 +134,5 @@ export default function Login() {
         </div>
       </div>
     </section>
-  );
+  )
 }

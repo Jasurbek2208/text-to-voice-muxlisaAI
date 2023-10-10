@@ -1,39 +1,43 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { v4 } from "uuid";
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import { v4 } from 'uuid'
 
 // Helpers
-import { setAuthURL } from "@helpers/index";
+import { setAuthURL } from '@helpers/index'
 
 export default function TermsConditions() {
-  const navigate = useNavigate();
-  const thisURLID: string = Cookies.get("$THIS$CURRENT$USER$") || v4();
+  const navigate = useNavigate()
+  const thisURLID: string = Cookies.get('$THIS$CURRENT$USER$') || v4()
 
-  const checkboxRef = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState<string>(window?.location?.search);
+  const checkboxRef = useRef<HTMLInputElement>(null)
+  const [search, setSearch] = useState<string>(window?.location?.search)
 
-  
   useEffect(() => {
-    const params = new URLSearchParams(window?.location?.search);
-    setSearch(`?${params?.toString()}`);
-    
+    const params = new URLSearchParams(window?.location?.search)
+    setSearch(`?${params?.toString()}`)
+
     // Get the values of the email, password, and confirm-password parameters
-    (checkboxRef?.current as any).checked = JSON.parse(String(params?.get("terms")));
-  }, []);
+    ;(checkboxRef?.current as any).checked = JSON.parse(String(params?.get('terms')))
+  }, [])
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    const params = new URLSearchParams(window?.location?.search);
-    
+    const params = new URLSearchParams(window?.location?.search)
+
     // Set the values of the email, password, and confirm-password parameters
-    const value = e?.currentTarget?.type === "checkbox" ? (e?.currentTarget?.checked) : e?.currentTarget?.value
-    params?.set(e?.currentTarget?.name, String(value));
+    const value =
+      e?.currentTarget?.type === 'checkbox' ? e?.currentTarget?.checked : e?.currentTarget?.value
+    params?.set(e?.currentTarget?.name, String(value))
 
     // Replace the current URL with the updated query parameters
     setSearch(`?${params?.toString()}`)
-    window?.history?.replaceState(null, "", `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`);
+    window?.history?.replaceState(
+      null,
+      '',
+      `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`,
+    )
 
-    setAuthURL(thisURLID);
+    setAuthURL(thisURLID)
   }
 
   return (
@@ -44,7 +48,28 @@ export default function TermsConditions() {
       <div className="w-full h-[70dvh] p-6 space-y-4 whitespace-break-spaces break-words md:space-y-6 sm:p-8 overflow-y-auto bg-gray-100 dark:bg-gray-800 rounded-lg shadow">
         <h2 className="text-center text-blue-600 text-xl font-bold">Foydalanish shartlari:</h2>
         <p className="text-gray-600 dark:text-gray-300">
-          Assalomu alaykum. Siz <a href="https://text-to-voice-muxlisa-ai.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-600">texttovoice.uz</a> saytidan foydalanishingiz uchun oldin ushbu saytdan ro'yxatdan o'tishingiz va quyidagi foydalanish shartlari bilan tanishib chiqib, <b>"Men Foydalanish shartlarni qabul qilaman"</b> deb yozilgan belgilash katagini yoqqan holda ushbu shartlarga rozilik bildirishingiz kerak: <br /><br />Ushbu saytdan ro'yxatdan o'tib siz o'zingiz kiritgan ma'lumotlaringiz bizning ma'lumotlar bazamizda saqlanishi va saytdagi faoliyatingizda(to'lov qilishda, pullik xizmatlardan foydalanishda) ishlatilishi mumkin. Va bu ishlarning barchasi sizning ushbu saytdagi profilingiz xavfsizligi ta'minlanishi uchun qaratilgan. <b>To'lov qilinganidan so'ng, pullar ortga qaytarilmaydi, chunki siz bunga rozilik bildirgansiz, shuni unutmang!</b>
+          Assalomu alaykum. Siz{' '}
+          <a
+            href="https://text-to-voice-muxlisa-ai.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600"
+          >
+            texttovoice.uz
+          </a>{' '}
+          saytidan foydalanishingiz uchun oldin ushbu saytdan ro'yxatdan o'tishingiz va quyidagi
+          foydalanish shartlari bilan tanishib chiqib,{' '}
+          <b>"Men Foydalanish shartlarni qabul qilaman"</b> deb yozilgan belgilash katagini yoqqan
+          holda ushbu shartlarga rozilik bildirishingiz kerak: <br />
+          <br />
+          Ushbu saytdan ro'yxatdan o'tib siz o'zingiz kiritgan ma'lumotlaringiz bizning ma'lumotlar
+          bazamizda saqlanishi va saytdagi faoliyatingizda(to'lov qilishda, pullik xizmatlardan
+          foydalanishda) ishlatilishi mumkin. Va bu ishlarning barchasi sizning ushbu saytdagi
+          profilingiz xavfsizligi ta'minlanishi uchun qaratilgan.{' '}
+          <b>
+            To'lov qilinganidan so'ng, pullar ortga qaytarilmaydi, chunki siz bunga rozilik
+            bildirgansiz, shuni unutmang!
+          </b>
         </p>
         <div className="flex items-start">
           <div className="flex items-center h-5">
@@ -60,13 +85,10 @@ export default function TermsConditions() {
             />
           </div>
           <div className="ml-3 text-sm">
-            <label
-              htmlFor="terms"
-              className="font-light text-gray-500 dark:text-gray-300"
-            >
-              Men{" "}
+            <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">
+              Men{' '}
               <label htmlFor="terms" className="font-medium text-blue-600 dark:text-primary-500">
-                Foydalanish shartlarni{" "}
+                Foydalanish shartlarni{' '}
               </label>
               qabul qilaman
             </label>
@@ -81,5 +103,5 @@ export default function TermsConditions() {
         Ortga qaytish
       </button>
     </div>
-  );
+  )
 }

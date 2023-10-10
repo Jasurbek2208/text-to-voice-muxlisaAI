@@ -1,46 +1,49 @@
-import React, { lazy } from "react";
-import { Navigate } from "react-router-dom";
+import { lazy } from 'react'
+import { Navigate } from 'react-router-dom'
 
 // Types
-import { IRoute } from "../types";
+import { IRoute } from '../types'
 
 // Lazy-loaded pages
 // ===Not autorized Routes
-const Login = lazy(() => import("@pages/auth/Login"));
-const Register = lazy(() => import("@pages/auth/Register"));
-const SuccessRegistered = lazy(() => import("@pages/auth/SuccessRegistered"));
-const TermsConditions = lazy(() => import("@pages/auth/TermsConditions"));
+const Login = lazy(() => import('@pages/auth/Login'))
+const Register = lazy(() => import('@pages/auth/Register'))
+const SuccessRegistered = lazy(() => import('@pages/auth/SuccessRegistered'))
+const TermsConditions = lazy(() => import('@pages/auth/TermsConditions'))
 // ===Autorized Routes
-const TextToVoice = lazy(() => import("@pages/AIChats/TextToVoice"));
+const TextToVoice = lazy(() => import('@pages/AIChats/TextToVoice'))
 // const VoiceToText = lazy(() => import("@pages//AIChats/VoiceToText"));
-
 
 export const authRoutes: IRoute[] = [
   {
-    path: "login",
+    path: 'login',
     element: <Login />,
   },
   {
-    path: "register",
+    path: 'register',
     element: <Register />,
   },
   {
-    path: "success-registered",
-    element: localStorage.getItem("success-registered") ? <SuccessRegistered /> : <Navigate to="/login" />,
+    path: 'success-registered',
+    element: localStorage.getItem('success-registered') ? (
+      <SuccessRegistered />
+    ) : (
+      <Navigate to="/login" />
+    ),
   },
   {
-    path: "terms-and-conditions",
+    path: 'terms-and-conditions',
     element: <TermsConditions />,
   },
   {
-    path: "*",
+    path: '*',
     element: <Navigate to="/login" />,
   },
 ]
 
 export const routes: IRoute[] = [
   {
-    path: "text-to-voice",
+    path: 'text-to-voice',
     element: <TextToVoice />,
   },
   // {
@@ -48,7 +51,7 @@ export const routes: IRoute[] = [
   //   element: <VoiceToText />,
   // },
   {
-    path: "*",
+    path: '*',
     element: <Navigate to="/text-to-voice" />,
   },
-];
+]

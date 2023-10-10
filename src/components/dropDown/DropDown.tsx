@@ -1,48 +1,64 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useEffect, useState, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 // Store redux
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "@hooks/reduxSelector";
-import { changeAIVoiceGender, clearTextToVoiceHistory, clearVoiceToTextHistory, userAuth } from "@store/store";
+import { useDispatch } from 'react-redux'
+import { useTypedSelector } from '@hooks/reduxSelector'
+import {
+  changeAIVoiceGender,
+  clearTextToVoiceHistory,
+  clearVoiceToTextHistory,
+  userAuth,
+} from '@store/store'
 
 // Helpers
-import { clearHistory, swtichTheme } from "@helpers/index";
+import { clearHistory, swtichTheme } from '@helpers/index'
 
 export default function DropDown() {
-  const dispatch = useDispatch();
-  const { user: { userId }, AIVoiceGender } = useTypedSelector(store => store?.store)
-  
-  const pathname = useLocation().pathname as "text-to-voice" | "voice-to-text";
-  const historyType: "textToVoice" | "voiceToText" = pathname === "text-to-voice" ? "textToVoice" : "voiceToText";
+  const dispatch = useDispatch()
+  const {
+    user: { userId },
+    AIVoiceGender,
+  } = useTypedSelector((store) => store?.store)
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [theme, setTheme] = useState<"dark" | "light">((localStorage.getItem('theme') as "dark" | "light") || "dark");
+  const pathname = useLocation().pathname as 'text-to-voice' | 'voice-to-text'
+  const historyType: 'textToVoice' | 'voiceToText' =
+    pathname === 'text-to-voice' ? 'textToVoice' : 'voiceToText'
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [theme, setTheme] = useState<'dark' | 'light'>(
+    (localStorage.getItem('theme') as 'dark' | 'light') || 'dark',
+  )
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   function clearHistoryChange() {
-    const type = { type: "CLEAR_HISTORY" }
+    const type = { type: 'CLEAR_HISTORY' }
 
-    dispatch(pathname === "text-to-voice" ? clearTextToVoiceHistory(type) : clearVoiceToTextHistory(type));
-    clearHistory(historyType, userId);
-    Cookies.remove("$text$to$voice$audios$");
-    localStorage.removeItem("$text$to$voic$AI$voice$gender$");
+    dispatch(
+      pathname === 'text-to-voice' ? clearTextToVoiceHistory(type) : clearVoiceToTextHistory(type),
+    )
+    clearHistory(historyType, userId)
+    Cookies.remove('$text$to$voice$audios$')
+    localStorage.removeItem('$text$to$voic$AI$voice$gender$')
   }
 
   function changeVoiceGender() {
-    dispatch(changeAIVoiceGender(AIVoiceGender === "Male" ? "Female" : "Male"))
-    localStorage.setItem("$text$to$voic$AI$voice$gender$", AIVoiceGender === "Male" ? "Female" : "Male");
+    dispatch(changeAIVoiceGender(AIVoiceGender === 'Male' ? 'Female' : 'Male'))
+    localStorage.setItem(
+      '$text$to$voic$AI$voice$gender$',
+      AIVoiceGender === 'Male' ? 'Female' : 'Male',
+    )
   }
 
   function toggleTheme() {
-    swtichTheme("switch");
-    setTheme((localStorage.getItem('theme') as "dark" | "light") || "dark");
+    swtichTheme('switch')
+    setTheme((localStorage.getItem('theme') as 'dark' | 'light') || 'dark')
   }
 
   useEffect(() => {
@@ -54,77 +70,76 @@ export default function DropDown() {
         buttonRef?.current &&
         !buttonRef?.current.contains(event?.target as Node)
       ) {
-        // Click occurred outside of the button, close the dropdown menu
-        setIsMenuOpen(false);
+        setIsMenuOpen(false)
       }
-    };
+    }
 
     // Attach the event listener
     if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside)
 
       return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen])
 
   const menuItems = [
     {
-      label: `${theme === "dark" ? "Kunduzgi " : "Tungi "} rejimni yoqish`,
+      label: `${theme === 'dark' ? 'Kunduzgi ' : 'Tungi '} rejimni yoqish`,
       onClick: toggleTheme,
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
     {
       label: `AI ovoz jinsi: ${AIVoiceGender}`,
       onClick: changeVoiceGender,
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
     {
       label: "Yozishmalar tarixini qo'shish",
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
     {
-      label: "Ushbu yozishmalar tarixidan nusxa olish",
+      label: 'Ushbu yozishmalar tarixidan nusxa olish',
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
     {
-      label: "Yozishmalarni tozalash",
+      label: 'Yozishmalarni tozalash',
       onClick: clearHistoryChange,
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
     {
-      label: "Audio keshni tozalash",
-      onClick: () => Cookies.remove("$text$to$voice$audios$"),
+      label: 'Audio keshni tozalash',
+      onClick: () => Cookies.remove('$text$to$voice$audios$'),
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
     {
-      label: "Hisobdan chiqish",
-      onClick: () => dispatch(userAuth({ data: null, type: "LOGOUT"})),
+      label: 'Hisobdan chiqish',
+      onClick: () => dispatch(userAuth({ data: null, type: 'LOGOUT' })),
       icon: [
-        "M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z",
-        "M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z",
+        'M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z',
+        'M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z',
       ],
     },
-  ];
+  ]
 
   return (
     <div className="group relative">
@@ -155,9 +170,7 @@ export default function DropDown() {
             <ul className="text-sm text-gray-500 dark:text-gray-300 duration-300">
               {menuItems?.map((item, index) => (
                 <li key={String(index)} onClick={item?.onClick}>
-                  <p
-                    className="flex items-center px-3 py-2 cursor-pointer outline-none hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-white focus:text-blue-600 duration-300"
-                  >
+                  <p className="flex items-center px-3 py-2 cursor-pointer outline-none hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-blue-600 dark:hover:text-white focus:text-blue-600 duration-300">
                     <svg
                       className="text-sm w-3.5 h-3.5 mr-2"
                       aria-hidden="true"
@@ -178,5 +191,5 @@ export default function DropDown() {
         </div>
       )}
     </div>
-  );
+  )
 }

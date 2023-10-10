@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { myAxios } from "@service/axios";
-import { toast } from "react-toastify";
-import Cookies from "js-cookie";
-import { v4 } from "uuid";
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { myAxios } from '@service/axios'
+import { toast } from 'react-toastify'
+import Cookies from 'js-cookie'
+import { v4 } from 'uuid'
 
 // Helpers
-import { setAuthURL, setFormFields, requestToSendVerify, trimValuesChecker } from "@helpers/index";
+import { setAuthURL, setFormFields, requestToSendVerify, trimValuesChecker } from '@helpers/index'
 
 export default function Register() {
-  const thisURLID: string = Cookies.get("$THIS$CURRENT$USER$") || v4();
+  const thisURLID: string = Cookies.get('$THIS$CURRENT$USER$') || v4()
 
-  const [search, setSearch] = useState<string>("");
-  const formRef = useRef<HTMLFormElement>(null);
+  const [search, setSearch] = useState<string>('')
+  const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     if (
@@ -22,60 +22,61 @@ export default function Register() {
       !formRef?.current?.email ||
       !formRef?.current?.terms ||
       !formRef?.current?.password ||
-      !formRef?.current?.["confirm-password"]
+      !formRef?.current?.['confirm-password']
     )
-      return;
+      return
 
-    const params = new URLSearchParams(window?.location?.search);
-    setSearch(`?${params?.toString()}`);
+    const params = new URLSearchParams(window?.location?.search)
+    setSearch(`?${params?.toString()}`)
 
     // Get the values of the email, password, and confirm-password parameters
-    setFormFields(formRef, "name", "value", params?.get("name") || "");
-    setFormFields(formRef, "surname", "value", params?.get("surname") || "");
-    setFormFields(formRef, "birthday", "value", params?.get("birthday") || "");
-    setFormFields(formRef, "email", "value", params?.get("email") || "");
-    setFormFields(formRef, "password", "value", params?.get("password") || "");
-    setFormFields(formRef, "confirm-password", "value", params?.get("confirm-password") || "");
-    setFormFields(formRef, "terms", "checked", JSON.parse(String(params?.get("terms"))) || "");
-  }, []);
+    setFormFields(formRef, 'name', 'value', params?.get('name') || '')
+    setFormFields(formRef, 'surname', 'value', params?.get('surname') || '')
+    setFormFields(formRef, 'birthday', 'value', params?.get('birthday') || '')
+    setFormFields(formRef, 'email', 'value', params?.get('email') || '')
+    setFormFields(formRef, 'password', 'value', params?.get('password') || '')
+    setFormFields(formRef, 'confirm-password', 'value', params?.get('confirm-password') || '')
+    setFormFields(formRef, 'terms', 'checked', JSON.parse(String(params?.get('terms'))) || '')
+  }, [])
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    const params = new URLSearchParams(window?.location?.search);
+    const params = new URLSearchParams(window?.location?.search)
 
     // Set the values of the email, password, and confirm-password parameters
     const value =
-      e?.currentTarget?.type === "checkbox"
-        ? e?.currentTarget?.checked
-        : e?.currentTarget?.value;
-    params?.set(e?.currentTarget?.name, String(value));
+      e?.currentTarget?.type === 'checkbox' ? e?.currentTarget?.checked : e?.currentTarget?.value
+    params?.set(e?.currentTarget?.name, String(value))
 
     // Replace the current URL with the updated query parameters
-    setSearch(`?${params?.toString()}`);
+    setSearch(`?${params?.toString()}`)
     window?.history?.replaceState(
       null,
-      "",
-      `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`
-    );
+      '',
+      `?${thisURLID}&browserId=${thisURLID}&${params?.toString()}&${thisURLID}`,
+    )
 
-    setAuthURL(thisURLID);
+    setAuthURL(thisURLID)
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    setFormFields(formRef, "surname", "value", e.currentTarget?.surname?.value?.trim());
-    e.preventDefault();
+    setFormFields(formRef, 'surname', 'value', e.currentTarget?.surname?.value?.trim())
+    e.preventDefault()
 
-    const formData = new FormData(e.currentTarget);
-    const email = e?.currentTarget?.email?.value;
+    const formData = new FormData(e.currentTarget)
+    const email = e?.currentTarget?.email?.value
 
     try {
-      const response = await myAxios.post("/auth/register", formData);
-      console.log(response);
-      
-      localStorage.setItem("success-registered", email || "");
-      await requestToSendVerify(email || "");
+      const response = await myAxios.post('/auth/register', formData)
+      console.log(response)
 
+      localStorage.setItem('success-registered', email || '')
+      await requestToSendVerify(email || '')
     } catch (error: any) {
-      toast.warning(error?.response?.data?.message || "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.", { position: "top-center" });
+      toast.warning(
+        error?.response?.data?.message ||
+          "Internetingiz o'chiq yoki texnik xato yuz berdi, qayta urinib ko'ring.",
+        { position: 'top-center' },
+      )
     }
   }
 
@@ -89,12 +90,7 @@ export default function Register() {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Hisob ochish
           </h1>
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="space-y-4 md:space-y-6"
-            action="#"
-          >
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
             <div>
               <label
                 htmlFor="name"
@@ -208,22 +204,19 @@ export default function Register() {
                     Kamida 12 ta belgilik parol kiriting
                   </span>
                 </div>
-              ) : formRef?.current?.["confirm-password"]?.value ?
-                formRef?.current?.["confirm-password"]?.value !==
-                  formRef?.current?.password?.value ? (
-                <div className="mt-2 flex items-center">
-                  <i className="fa-solid fa-circle-exclamation text-red-600" />
-                  <span className="ml-1 text-sm text-red-600">
-                    Parol mos kelmadi
-                  </span>
-                </div>
-              ) : (
-                <div className="mt-2 flex items-center">
-                  <i className="fa-solid fa-circle-check text-green-600" />
-                  <span className="ml-1 text-sm text-green-600">
-                    Parol mos keldi
-                  </span>
-                </div>
+              ) : formRef?.current?.['confirm-password']?.value ? (
+                formRef?.current?.['confirm-password']?.value !==
+                formRef?.current?.password?.value ? (
+                  <div className="mt-2 flex items-center">
+                    <i className="fa-solid fa-circle-exclamation text-red-600" />
+                    <span className="ml-1 text-sm text-red-600">Parol mos kelmadi</span>
+                  </div>
+                ) : (
+                  <div className="mt-2 flex items-center">
+                    <i className="fa-solid fa-circle-check text-green-600" />
+                    <span className="ml-1 text-sm text-green-600">Parol mos keldi</span>
+                  </div>
+                )
               ) : (
                 <div className="mt-2 flex items-center">
                   <i className="fa-solid fa-circle-exclamation text-blue-600" />
@@ -231,7 +224,7 @@ export default function Register() {
                     Parolni tasdiqlash uchun qayta kiriting
                   </span>
                 </div>
-              ) }
+              )}
             </div>
             <div className="flex items-start">
               <div className="flex items-center h-5">
@@ -246,16 +239,13 @@ export default function Register() {
                 />
               </div>
               <div className="ml-3 text-sm">
-                <label
-                  htmlFor="terms"
-                  className="font-light text-gray-500 dark:text-gray-300"
-                >
-                  Men{" "}
+                <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">
+                  Men{' '}
                   <Link
                     className="font-medium text-blue-600 hover:underline dark:text-primary-500"
                     to={`/terms-and-conditions${search}`}
                   >
-                    Foydalanish shartlarni{" "}
+                    Foydalanish shartlarni{' '}
                   </Link>
                   qabul qilaman
                 </label>
@@ -265,16 +255,15 @@ export default function Register() {
               type="submit"
               className="w-full text-white bg-blue-600 disabled:bg-blue-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               disabled={
-                formRef?.current?.["confirm-password"]?.value &&
-                formRef?.current?.["confirm-password"]?.value !==
-                  formRef?.current?.password?.value
+                formRef?.current?.['confirm-password']?.value &&
+                formRef?.current?.['confirm-password']?.value !== formRef?.current?.password?.value
               }
-              onClick={()=> trimValuesChecker(formRef, "REGISTER")}
+              onClick={() => trimValuesChecker(formRef, 'REGISTER')}
             >
               Hisobni ochish
             </button>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-              Hisobingiz bormi?{" "}
+              Hisobingiz bormi?{' '}
               <Link
                 to="/login"
                 className="font-medium text-blue-600 hover:underline dark:text-primary-500"
@@ -286,5 +275,5 @@ export default function Register() {
         </div>
       </div>
     </section>
-  );
+  )
 }

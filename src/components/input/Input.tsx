@@ -1,27 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react'
 
 // Components
-import DropDown from "../dropDown/DropDown";
+import DropDown from '../dropDown/DropDown'
 
 interface IInput {
-  value: string;
-  onChange: (param: string) => void;
-  handleSubmit: React.MouseEventHandler<HTMLButtonElement>;
+  value: string
+  onChange: (param: string) => void
+  handleSubmit: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Input({ value, onChange, handleSubmit }: IInput) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     if (textareaRef?.current && textareaRef?.current?.scrollHeight <= 105) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef?.current?.scrollHeight}px`;
+      textareaRef.current.style.height = 'auto'
+      textareaRef.current.style.height = `${textareaRef?.current?.scrollHeight}px`
     }
-  }, [value]);
+  }, [value])
 
   return (
     <div className="bg-[rgba(247,247,248,1)] dark:bg-dark w-full h-20 max-h-20 border-t-2 duration-300">
-      {/* DropDown */}
       <div className="max-w-[900px] mx-auto flex items-center pr-2 ">
         <DropDown />
         <textarea
@@ -37,7 +36,13 @@ export default function Input({ value, onChange, handleSubmit }: IInput) {
           type="submit"
           disabled={!value?.trim() || value?.length > 500}
           onClick={handleSubmit}
-          className={`relative inline-flex justify-center p-2 pl-0 rounded-full ${value?.length > 500 ?'cursor-default text-red-600 dark:text-red-500' : value?.length === 0 || !value?.trim() ? 'cursor-default text-blue-600 dark:text-blue-500' : 'cursor-pointer text-blue-600 dark:text-blue-500'} outline-none focus:scale-105 duration-300`}
+          className={`relative inline-flex justify-center p-2 pl-0 rounded-full ${
+            value?.length > 500
+              ? 'cursor-default text-red-600 dark:text-red-500'
+              : value?.length === 0 || !value?.trim()
+              ? 'cursor-default text-blue-600 dark:text-blue-500'
+              : 'cursor-pointer text-blue-600 dark:text-blue-500'
+          } outline-none focus:scale-105 duration-300`}
         >
           <svg
             className="w-5 h-5 rotate-90"
@@ -50,8 +55,14 @@ export default function Input({ value, onChange, handleSubmit }: IInput) {
           </svg>
           <span className="sr-only">Xabar yuborish</span>
         </button>
-        {value?.length > 500 && <div className={`absolute right-2 bottom-3 w-[40px] flex justify-center text-red-600 font-extralight font-mono text-xs duration-300`}>-{value?.length - 500}</div>}
+        {value?.length > 500 && (
+          <div
+            className={`absolute right-2 bottom-3 w-[40px] flex justify-center text-red-600 font-extralight font-mono text-xs duration-300`}
+          >
+            -{value?.length - 500}
+          </div>
+        )}
       </div>
     </div>
-  );
+  )
 }

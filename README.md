@@ -17,8 +17,8 @@ Text to Voice is a text-to-voice and voice-to-text messaging app designed for Uz
 ## Usage
 Visit https://texttovoice.uz in your web browser.
 
-## <h1>SEO Optimizations</h1>
-<h5>The app is optimized for SEO with:</h5>
+## SEO Optimizations
+<h4>The app is optimized for SEO with:</h4>
 
 - SEO-friendly meta tags.
 - Open Graph sharing support.

@@ -25,10 +25,10 @@
       "@router/*": ["router/*"],
       "@helpers/*": ["helpers/*"],
       "@service/*": ["service/*"],
-      "@components/*": ["components/*"],
-    },
+      "@components/*": ["components/*"]
+    }
   },
-  "include": ["./src"],
+  "include": ["./src", "public/script.ts"],
   "composite": true,
-  "references": [{ "path": "./tsconfig.node.json" }],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

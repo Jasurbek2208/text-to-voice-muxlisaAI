@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Navbar() {
   return (
     <div className='w-full h-12 bg-[rgba(247,247,248,1)] dark:bg-darker shadow-slate-900 bg:shadow-slate-500 shadow-sm duration-300'>

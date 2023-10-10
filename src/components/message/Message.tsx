@@ -1,12 +1,9 @@
-import React from "react";
-
 // Types
-import { IMessageConfigs } from "../../types";
-
+import { IMessageConfigs } from "../../types"
 interface IMessage {
-  message: IMessageConfigs;
-  isUser: boolean;
-  rounded: 'rounded-bl-xl' | 'rounded-br-xl';
+  message: IMessageConfigs
+  isUser: boolean
+  rounded: 'rounded-bl-xl' | 'rounded-br-xl'
 }
 
 export default function Message({ message, isUser, rounded }: IMessage) {
@@ -15,5 +12,5 @@ export default function Message({ message, isUser, rounded }: IMessage) {
       <p className="whitespace-break-spaces break-words font-normal text-lg text-gray-600 dark:text-gray-300 duration-300">{message?.value}</p>
       <p className="text-gray-600 dark:text-gray-300 text-xxs text-right duration-300">{message?.date}</p>
     </div>
-  );
+  )
 }

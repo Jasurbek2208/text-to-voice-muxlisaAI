@@ -7,15 +7,15 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: './index.html',
-      },
-    },
+        main: './index.html'
+      }
+    }
   },
   plugins: [react(), reactRefresh(), tsconfigPaths()],
   optimizeDeps: {
-    include: ['react', 'react-dom'],
+    include: ['react', 'react-dom']
   },
   esbuild: {
-    jsxInject: `import React from 'react';`,
-  },
+    jsxInject: `import React from 'react';`
+  }
 })
