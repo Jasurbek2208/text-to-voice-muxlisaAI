@@ -4,7 +4,7 @@ import { myAxios } from '@service/axios'
 
 // Redux store
 import { AnyAction } from '@reduxjs/toolkit'
-import { userAuth } from '@store/store'
+import { changeLoading, userAuth } from '@store/store'
 
 export async function checkTokenValidity(dispatch: Dispatch<AnyAction>) {
   try {
@@ -17,5 +17,6 @@ export async function checkTokenValidity(dispatch: Dispatch<AnyAction>) {
     )
   } catch {
     dispatch(userAuth({ data: null, type: 'LOGOUT' }))
+    dispatch(changeLoading(false))
   }
 }

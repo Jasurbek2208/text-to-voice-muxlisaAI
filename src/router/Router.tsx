@@ -15,6 +15,7 @@ import Loader from '@components/loader/Loader'
 // Helpers
 import { checkingAuthURL, checkTokenValidity } from '@helpers/index'
 import { toast } from 'react-toastify'
+import { changeLoading } from '@store/store'
 
 export default function Router() {
   const dispatch = useDispatch()
@@ -27,7 +28,10 @@ export default function Router() {
 
   async function checking() {
     checkingAuthURL()
-    if (!Cookies.get('$T$O$K$E$N$')) return
+    if (!Cookies.get('$T$O$K$E$N$')) {
+      dispatch(changeLoading(false))
+      return
+    }
     await checkTokenValidity(dispatch)
   }
 
@@ -64,7 +68,7 @@ export default function Router() {
   // Checking user is admin on device internet connected
   useEffect(() => {
     if (!isOnline) return
-    checking()
+    // checking()
   }, [isOnline])
 
   useEffect(() => {
@@ -77,7 +81,7 @@ export default function Router() {
   return (
     <>
       {isLoading && <Loader />}
-      {isAuth && <Suspense>{routers}</Suspense>}
+      {routers && <Suspense>{routers}</Suspense>}
     </>
   )
 }

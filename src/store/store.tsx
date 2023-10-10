@@ -65,6 +65,7 @@ const store = createSlice({
             userToken: '',
           }
           Cookies.remove('$T$O$K$E$N$')
+          Cookies.remove('$text$to$voice$audios$')
           break
       }
     },
